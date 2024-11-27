@@ -1,6 +1,10 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorUsuarios;
+import sistemagestionempresa.Modelos.Entidades.Roles;
+import sistemagestionempresa.Modelos.Entidades.Usuarios;
 
 /**
  *
@@ -8,16 +12,52 @@ import java.awt.Color;
  */
 public class Usuario extends javax.swing.JFrame {
 
+    ControladorUsuarios controlador = new ControladorUsuarios();
+    Usuarios usuario = new Usuarios();
+    int fila;
+    int codigo = 0;
+
     public Usuario() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
-       //this.setContentPane(panel);
+        //this.setContentPane(panel);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Usuarios");
+        CargarTabla();
+        CargarCombos();
     }
 
-    
+    public void CargarCombos() {
+        cbTipo.setModel(controlador.CargarCombos());
+    }
+
+    public void CargarTabla() {
+        controlador.lista(Registros);
+    }
+
+    public void Guardar() {
+        usuario.setIdUsuario(codigo);
+        usuario.setNombre(tbNombre.getText());
+        usuario.setApellido(tbApellido.getText());
+        usuario.setCorreo(tbCorreo.getText());
+        usuario.setTelefono(tbTelefono.getText());
+        usuario.setClave(tbClave.getText());
+        Roles rol = (Roles) cbTipo.getSelectedItem();
+        usuario.setRolUsuario(rol.getIdRol());
+        controlador.Guardar(usuario);
+    }
+
+    public void Limpiar() {
+        tbNombre.setText("");
+        tbApellido.setText("");
+        tbTelefono.setText("");
+        tbCorreo.setText("");
+        tbClave.setText("");
+        cbTipo.setSelectedIndex(0);
+        codigo = 0;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,29 +65,29 @@ public class Usuario extends javax.swing.JFrame {
         paneles1 = new sistemagestionempresa.vistas.paneles();
         paneles2 = new sistemagestionempresa.vistas.paneles();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tablaDark2 = new sistemagestionempresa.vistas.tablaDark();
+        Registros = new sistemagestionempresa.vistas.tablaDark();
         btnInicio = new sistemagestionempresa.vistas.botones();
         btnMinimizar = new sistemagestionempresa.vistas.botones();
         btnCerrar = new sistemagestionempresa.vistas.botones();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jTextField2 = new javax.swing.JTextField();
+        tbApellido = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        tbCorreo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        tbClave = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jLabel6 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        tbTelefono = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cbTipo = new javax.swing.JComboBox<>();
+        tbNombre = new javax.swing.JTextField();
         btnEliminar = new sistemagestionempresa.vistas.botones();
         btnGuardar = new sistemagestionempresa.vistas.botones();
         btnRoles = new sistemagestionempresa.vistas.botones();
@@ -58,19 +98,24 @@ public class Usuario extends javax.swing.JFrame {
 
         paneles2.setBackground(new java.awt.Color(128, 150, 113));
 
-        tablaDark2.setModel(new javax.swing.table.DefaultTableModel(
+        Registros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Nombre", "Apellido", "Telefono", "Tipo", "Clave"
+                "Codigo", "Nombre", "Apellido", "Correo", "Telefono", "Clave", "Tipo"
             }
         ));
-        tablaDark2.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jScrollPane2.setViewportView(tablaDark2);
+        Registros.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(Registros);
 
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
         paneles2.setLayout(paneles2Layout);
@@ -137,9 +182,9 @@ public class Usuario extends javax.swing.JFrame {
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
-        jTextField2.setBackground(new java.awt.Color(229, 224, 216));
-        jTextField2.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jTextField2.setBorder(null);
+        tbApellido.setBackground(new java.awt.Color(229, 224, 216));
+        tbApellido.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbApellido.setBorder(null);
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -147,9 +192,9 @@ public class Usuario extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setText("Registro");
 
-        jTextField3.setBackground(new java.awt.Color(229, 224, 216));
-        jTextField3.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jTextField3.setBorder(null);
+        tbCorreo.setBackground(new java.awt.Color(229, 224, 216));
+        tbCorreo.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbCorreo.setBorder(null);
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel3.setText("Nombre");
@@ -159,9 +204,9 @@ public class Usuario extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel4.setText("Apellido");
 
-        jTextField4.setBackground(new java.awt.Color(229, 224, 216));
-        jTextField4.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jTextField4.setBorder(null);
+        tbClave.setBackground(new java.awt.Color(229, 224, 216));
+        tbClave.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbClave.setBorder(null);
 
         jLabel5.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel5.setText("Correo");
@@ -171,9 +216,9 @@ public class Usuario extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel6.setText("Clave");
 
-        jTextField5.setBackground(new java.awt.Color(229, 224, 216));
-        jTextField5.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jTextField5.setBorder(null);
+        tbTelefono.setBackground(new java.awt.Color(229, 224, 216));
+        tbTelefono.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbTelefono.setBorder(null);
 
         jLabel7.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel7.setText("Telefono");
@@ -183,11 +228,11 @@ public class Usuario extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Roboto Medium", 0, 15)); // NOI18N
         jLabel8.setText("Tipo de Usuario");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbTipo.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
 
-        jTextField1.setBackground(new java.awt.Color(229, 224, 216));
-        jTextField1.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
-        jTextField1.setBorder(null);
+        tbNombre.setBackground(new java.awt.Color(229, 224, 216));
+        tbNombre.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbNombre.setBorder(null);
 
         btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
@@ -198,6 +243,11 @@ public class Usuario extends javax.swing.JFrame {
         btnEliminar.setColorOver(new java.awt.Color(255, 51, 51));
         btnEliminar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnEliminar.setRadio(40);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(0, 153, 51));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
@@ -208,6 +258,11 @@ public class Usuario extends javax.swing.JFrame {
         btnGuardar.setColorOver(new java.awt.Color(51, 255, 51));
         btnGuardar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnGuardar.setRadio(40);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnRoles.setBackground(new java.awt.Color(128, 150, 113));
         btnRoles.setForeground(new java.awt.Color(255, 255, 255));
@@ -250,20 +305,20 @@ public class Usuario extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(tbTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tbClave, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tbCorreo, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tbApellido, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tbNombre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(35, 35, 35)))
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneles1Layout.createSequentialGroup()
@@ -289,37 +344,37 @@ public class Usuario extends javax.swing.JFrame {
                 .addGap(128, 128, 128)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbClave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tbTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -365,19 +420,73 @@ public class Usuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-     Menu menu = new Menu();
-     menu.show();
-     this.dispose();
+        Menu menu = new Menu();
+        menu.show();
+        this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
-     this.setState(ICONIFIED);
+        this.setState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizarActionPerformed
 
     private void btnRolesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRolesActionPerformed
-      Rol rol = new Rol();
-      rol.show();
+        Rol rol = new Rol();
+        rol.show();
     }//GEN-LAST:event_btnRolesActionPerformed
+
+    public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Nombre no puede estar vacío.");
+            return false;
+        }
+        if (tbApellido.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Apellido no puede estar vacío.");
+            return false;
+        }
+        if (tbCorreo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Correo no puede estar vacío.");
+            return false;
+        }
+        if (tbTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Teléfono no puede estar vacío.");
+            return false;
+        }
+        if (tbClave.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Clave no puede estar vacío.");
+            return false;
+        }
+        if (cbTipo.getSelectedIndex()==0) {
+            JOptionPane.showMessageDialog(null, "El tipo de Usuario no puede ser ese.");
+            return false;
+        }
+        return true;
+    }
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        if (Validacion()) {
+            Guardar();
+            Limpiar();
+            CargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
+        tbApellido.setText(String.valueOf(Registros.getValueAt(fila, 2)));
+        tbCorreo.setText(String.valueOf(Registros.getValueAt(fila, 3)));
+        tbTelefono.setText(String.valueOf(Registros.getValueAt(fila, 4)));
+        tbClave.setText(String.valueOf(Registros.getValueAt(fila, 5)));
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        controlador.Eliminar(codigo);
+        Limpiar();
+        CargarTabla();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -412,13 +521,14 @@ public class Usuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnGuardar;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnMinimizar;
     private sistemagestionempresa.vistas.botones btnRoles;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbTipo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -433,13 +543,12 @@ public class Usuario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
-    private sistemagestionempresa.vistas.tablaDark tablaDark2;
+    private javax.swing.JTextField tbApellido;
+    private javax.swing.JTextField tbClave;
+    private javax.swing.JTextField tbCorreo;
+    private javax.swing.JTextField tbNombre;
+    private javax.swing.JTextField tbTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,6 +1,9 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorRoles;
+import sistemagestionempresa.Modelos.Entidades.Roles;
 
 /**
  *
@@ -8,15 +11,45 @@ import java.awt.Color;
  */
 public class Rol extends javax.swing.JFrame {
 
-    
+    int fila;
+    int codigo = 0;
+    ControladorRoles controlador = new ControladorRoles();
+    Roles rol = new Roles();
+
     public Rol() {
-       this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Roles");
+        CargarTabla();
     }
 
+    public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void Guardar() {
+        rol.setNombre(tbNombre.getText());
+        rol.setIdRol(codigo);
+        controlador.Guardar(rol);
+    }
+
+    private void Limpiar() {
+        tbNombre.setText("");
+        codigo = 0;
+    }
+
+    public void CargarTabla() {
+        rol.setNombre(tbNombre.getText());
+        rol.setIdRol(codigo);
+        controlador.Tabla(Registros, rol);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -207,22 +240,34 @@ public class Rol extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+        rol.setNombre(tbNombre.getText());
+        rol.setIdRol(codigo);
+        controlador.Eliminar(rol);
+        Limpiar();
+        CargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        
+        if (Validacion()) {
+            Guardar();
+            Limpiar();
+            CargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
-       
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
     }//GEN-LAST:event_RegistrosMouseClicked
 
     private void tbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_tbCerrarActionPerformed
 
-    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

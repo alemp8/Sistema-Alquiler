@@ -1,20 +1,39 @@
 package sistemagestionempresa.vistas;
+
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorLogin;
+import sistemagestionempresa.Modelos.Entidades.Login;
+import sistemagestionempresa.Modelos.Entidades.Usuarios;
 
 /**
  *
  * @author Victor Alejandro
  */
-public class Login extends javax.swing.JFrame {
-    paneles panel = new paneles();
+public class Inicio extends javax.swing.JFrame {
 
-    public Login() {
+    paneles panel = new paneles();
+    ControladorLogin controlador = new ControladorLogin();
+
+    public Inicio() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         this.setContentPane(panel);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Inicio de Sesion");
+    }
+
+    public boolean Validacion() {
+        if (tbUsername.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El nombre de usuario es obligatorio.");
+            return false;
+        }
+        if (tbPassword.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "La clave es obligatorio.");
+            return false;
+        }
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -233,9 +252,20 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizarActionPerformed
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-      Menu menu = new Menu();
-      menu.show();
-      this.dispose();
+        if (!Validacion()) {
+        } else {
+            Login resultado = controlador.Autenticacion(tbUsername.getText(), tbPassword.getText());
+            if (resultado.isUsuarioEncontrado()) {
+                Usuarios usuario = resultado.getUsuario();
+                Menu menu = new Menu(usuario);
+                menu.setVisible(true);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Acceso denegado. Usuario o clave incorrectos.");
+            }
+        }
+
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
@@ -255,20 +285,21 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new Inicio().setVisible(true);
             }
         });
     }

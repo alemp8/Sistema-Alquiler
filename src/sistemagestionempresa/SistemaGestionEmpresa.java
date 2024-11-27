@@ -1,5 +1,5 @@
 package sistemagestionempresa;
-import sistemagestionempresa.vistas.Login;
+import sistemagestionempresa.vistas.Inicio;
 
 /**
  *
@@ -8,7 +8,7 @@ import sistemagestionempresa.vistas.Login;
 public class SistemaGestionEmpresa {
 
     public static void main(String[] args) {
-     Login.main(args);
+     Inicio.main(args);
     }
     
 }
