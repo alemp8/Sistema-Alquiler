@@ -299,7 +299,7 @@ public class Recursos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        Empleados emp = new Empleados();
+        Empleado emp = new Empleado();
         emp.show();
         this.dispose();
     }//GEN-LAST:event_btnEmpleadosActionPerformed
@@ -325,7 +325,7 @@ public class Recursos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
-      Puestos puesto = new Puestos();
+      Puesto puesto = new Puesto();
       puesto.show();
     }//GEN-LAST:event_btnPuestosActionPerformed
 

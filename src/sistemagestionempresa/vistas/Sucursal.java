@@ -1,21 +1,75 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorSucursales;
+import sistemagestionempresa.Modelos.Entidades.Sucursales;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class Sucursal extends javax.swing.JFrame {
-
+    int fila;
+    int codigo = 0;
+    ControladorSucursales controlador = new ControladorSucursales();
+    Sucursales sucursal = new Sucursales();
+    
     public Sucursal() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Sucursales");
+        CargarTabla();
     }
 
+     public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        if (tbDireccion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Direccion' no puede estar vacío.");
+            return false;
+        }
+        if (tbCorreo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Correo' no puede estar vacío.");
+            return false;
+        }
+        if (tbTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Telefono' no puede estar vacío.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void Guardar() {
+        sucursal.setNombre(tbNombre.getText());
+        sucursal.setIdSucursal(codigo);
+        sucursal.setDireccion(tbDireccion.getText());
+        sucursal.setCorreo(tbCorreo.getText());
+        sucursal.setTelefono(tbTelefono.getText());
+        controlador.Guardar(sucursal);
+    }
+
+    private void Limpiar() {
+        tbNombre.setText("");
+        tbDireccion.setText("");
+        tbCorreo.setText("");
+        tbTelefono.setText("");
+        codigo = 0;
+    }
+
+    public void CargarTabla() {
+        sucursal.setNombre(tbNombre.getText());
+        sucursal.setIdSucursal(codigo);
+        sucursal.setDireccion(tbDireccion.getText());
+        sucursal.setCorreo(tbCorreo.getText());
+        sucursal.setTelefono(tbTelefono.getText());
+        controlador.Tabla(Registros, sucursal);
+    }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -314,11 +368,24 @@ public class Sucursal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       
+        sucursal.setNombre(tbNombre.getText());
+        sucursal.setIdSucursal(codigo);
+        sucursal.setDireccion(tbDireccion.getText());
+        sucursal.setCorreo(tbCorreo.getText());
+        sucursal.setTelefono(tbTelefono.getText());
+        controlador.Eliminar(sucursal);
+        Limpiar();
+        CargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+     if (Validacion()) {
+            Guardar();
+            Limpiar();
+            CargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
+        }  
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
@@ -336,7 +403,12 @@ public class Sucursal extends javax.swing.JFrame {
     }//GEN-LAST:event_tbMinimizarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
-       
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
+        tbDireccion.setText(String.valueOf(Registros.getValueAt(fila, 2)));
+        tbCorreo.setText(String.valueOf(Registros.getValueAt(fila, 3)));
+        tbTelefono.setText(String.valueOf(Registros.getValueAt(fila, 4)));
     }//GEN-LAST:event_RegistrosMouseClicked
 
     

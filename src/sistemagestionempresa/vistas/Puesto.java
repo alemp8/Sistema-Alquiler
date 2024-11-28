@@ -1,19 +1,54 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorPuestos;
+import sistemagestionempresa.Modelos.Entidades.Puestos;
 
 /**
  *
  * @author Victor Alejandro
  */
-public class Puestos extends javax.swing.JFrame {
+public class Puesto extends javax.swing.JFrame {
 
-    public Puestos() {
+    int fila;
+    int codigo = 0;
+    Puestos puesto = new Puestos();
+    ControladorPuestos controlador = new ControladorPuestos();
+
+    public Puesto() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Puestos");
+        CargarTabla();
+    }
+
+    public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private void Guardar() {
+        puesto.setDescripcion(tbNombre.getText());
+        puesto.setIdPuesto(codigo);
+        controlador.Guardar(puesto);
+    }
+
+    private void Limpiar() {
+        tbNombre.setText("");
+        codigo = 0;
+    }
+
+    public void CargarTabla() {
+        puesto.setDescripcion(tbNombre.getText());
+        puesto.setIdPuesto(codigo);
+        controlador.Tabla(Registros, puesto);
     }
 
     @SuppressWarnings("unchecked")
@@ -208,11 +243,21 @@ public class Puestos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+        puesto.setDescripcion(tbNombre.getText());
+        puesto.setIdPuesto(codigo);
+        controlador.Eliminar(puesto);
+        Limpiar();
+        CargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       
+        if (Validacion()) {
+            Guardar();
+            Limpiar();
+            CargarTabla();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor complete todos los campos.");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void tbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCerrarActionPerformed
@@ -220,7 +265,9 @@ public class Puestos extends javax.swing.JFrame {
     }//GEN-LAST:event_tbCerrarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
-        
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
     }//GEN-LAST:event_RegistrosMouseClicked
 
     public static void main(String args[]) {
@@ -237,20 +284,21 @@ public class Puestos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Puestos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Puestos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Puestos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Puestos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Puesto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Puestos().setVisible(true);
+                new Puesto().setVisible(true);
             }
         });
     }
