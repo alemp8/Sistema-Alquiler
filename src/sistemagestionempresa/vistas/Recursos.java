@@ -1,6 +1,8 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorPlanillas;
 
 /**
  *
@@ -8,12 +10,21 @@ import java.awt.Color;
  */
 public class Recursos extends javax.swing.JFrame {
 
+    int fila;
+    int codigo;
+    ControladorPlanillas controlador = new ControladorPlanillas();
+
     public Recursos() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Recursos Humanos");
+        CargarTabla();
+    }
+
+    public void CargarTabla() {
+        controlador.Tabla(Registros);
     }
 
     @SuppressWarnings("unchecked")
@@ -147,23 +158,22 @@ public class Recursos extends javax.swing.JFrame {
 
         Registros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Codigo", "Realizada por", "Mes ", "Empleado", "Horas", "Bonos", "Deducciones", "Total"
+                "Codigo", "Fecha de Emision", "Realizada por"
             }
         ));
         Registros.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Registros);
-        if (Registros.getColumnModel().getColumnCount() > 0) {
-            Registros.getColumnModel().getColumn(3).setHeaderValue("Empleado");
-            Registros.getColumnModel().getColumn(4).setHeaderValue("Horas");
-            Registros.getColumnModel().getColumn(5).setHeaderValue("Bonos");
-            Registros.getColumnModel().getColumn(6).setHeaderValue("Deducciones");
-        }
 
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
         paneles2.setLayout(paneles2Layout);
@@ -197,6 +207,11 @@ public class Recursos extends javax.swing.JFrame {
         btnAgregar1.setColorOver(new java.awt.Color(204, 0, 0));
         btnAgregar1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnAgregar1.setRadio(40);
+        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar1ActionPerformed(evt);
+            }
+        });
 
         btnAgregar2.setBackground(new java.awt.Color(0, 153, 102));
         btnAgregar2.setForeground(new java.awt.Color(255, 255, 255));
@@ -207,6 +222,11 @@ public class Recursos extends javax.swing.JFrame {
         btnAgregar2.setColorOver(new java.awt.Color(0, 102, 102));
         btnAgregar2.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnAgregar2.setRadio(40);
+        btnAgregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneles1Layout = new javax.swing.GroupLayout(paneles1);
         paneles1.setLayout(paneles1Layout);
@@ -270,17 +290,18 @@ public class Recursos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneles1Layout.createSequentialGroup()
-                        .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(paneles1Layout.createSequentialGroup()
-                                .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(tbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18))
-                            .addGroup(paneles1Layout.createSequentialGroup()
-                                .addComponent(btnAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(7, 7, 7)))
-                        .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(paneles1Layout.createSequentialGroup()
+                            .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(tbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(18, 18, 18))
+                        .addGroup(paneles1Layout.createSequentialGroup()
+                            .addComponent(btnAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGap(7, 7, 7))))
+                .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
 
@@ -325,14 +346,37 @@ public class Recursos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnPuestosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestosActionPerformed
-      Puesto puesto = new Puesto();
-      puesto.show();
+        Puesto puesto = new Puesto();
+        puesto.show();
     }//GEN-LAST:event_btnPuestosActionPerformed
 
     private void btnPuestos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestos1ActionPerformed
-        Planillas plan = new Planillas();
+        Planilla plan = new Planilla();
         plan.show();
     }//GEN-LAST:event_btnPuestos1ActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2ActionPerformed
+        if (codigo == 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona el registro que quieres modificar");
+        } else if (codigo != 0) {
+            Planilla planilla = new Planilla(codigo);
+            planilla.show();
+        }
+    }//GEN-LAST:event_btnAgregar2ActionPerformed
+
+    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+        if (codigo == 0) {
+            JOptionPane.showMessageDialog(this, "Selecciona el registro que quieres modificar");
+        } else if (codigo != 0) {
+            controlador.Eliminar(codigo);
+            CargarTabla();
+        }
+    }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

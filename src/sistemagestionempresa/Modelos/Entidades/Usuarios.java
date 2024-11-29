@@ -27,6 +27,17 @@ public class Usuarios {
         this.rolUsuario = rolUsuario;
     }
 
+    public Usuarios(int idUsuario, String nombre) {
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
+    
     
     public Usuarios() {
         

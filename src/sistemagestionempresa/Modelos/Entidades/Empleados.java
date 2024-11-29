@@ -19,6 +19,11 @@ public class Empleados {
     public Empleados() {
     }
 
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
     
     public Empleados(int idEmpleado, String nombre, BigDecimal salario) {
         this.idEmpleado = idEmpleado;
