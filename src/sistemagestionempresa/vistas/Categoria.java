@@ -107,7 +107,7 @@ public class Categoria extends javax.swing.JFrame {
 
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        jLabel2.setText("Nombre del Rol");
+        jLabel2.setText("Nombre de la Categoria");
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -154,7 +154,7 @@ public class Categoria extends javax.swing.JFrame {
         );
 
         jLabel3.setFont(new java.awt.Font("Roboto Medium", 0, 20)); // NOI18N
-        jLabel3.setText("Lista de Roles");
+        jLabel3.setText("Lista de Categorias");
 
         tbCerrar.setBackground(new java.awt.Color(255, 0, 0));
         tbCerrar.setBorderColor(new java.awt.Color(255, 0, 0));
