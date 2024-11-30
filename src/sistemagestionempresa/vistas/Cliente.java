@@ -1,12 +1,33 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class Cliente extends javax.swing.JFrame {
+    
+    Conexion conex = new Conexion();
+    
+    private void Limpiar() {
+        tbRTN.setText("");
+        tbNombre.setText("");
+        tbDireccion.setText("");
+        tbCorreo.setText("");
+        tbTelefono.setText("");
+    }
+    
+    private void CargarData() {
+        DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        conex.obtenerConexion();
+        conex.TablaCargaClientes("Clientes");
+        Registros.setModel(conex.datatable);
+    }
 
     public Cliente() {
         this.setUndecorated(true);
@@ -14,12 +35,12 @@ public class Cliente extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Clientes");
-      
+        CargarData();
     }
 
    
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         paneles1 = new sistemagestionempresa.vistas.paneles();
@@ -344,33 +365,69 @@ public class Cliente extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        conex.obtenerConexion();
+        int fila = Registros.getSelectedRow();
+        String id = Registros.getValueAt(fila, 0).toString();
+        conex.eliminarCliente(Integer.parseInt(id));
+        
+        DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
+        modelo.setRowCount(0);
+        modelo.setColumnCount(0);
+        CargarData();
+        Limpiar();
+    }                                           
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-     
-    }//GEN-LAST:event_btnGuardarActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        conex.obtenerConexion();
+        
+        if(tbRTN.getText().equals("")){
+         JOptionPane.showMessageDialog(null, "Ingrese el RTN", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            } else {
+                if(tbNombre.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Ingrese el Nombre", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    if(tbDireccion.getText().equals("")){
+                        JOptionPane.showMessageDialog(null, "Ingrese la Dirección", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        if(tbCorreo.getText().equals("")){
+                            JOptionPane.showMessageDialog(null, "Ingrese el Correo", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        } else {
+                            if(tbTelefono.getText().equals("")){
+                                JOptionPane.showMessageDialog(null, "Ingrese el Teléfono", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            } else {
+                                conex.registrarCliente(tbRTN.getText(), tbNombre.getText(), tbDireccion.getText(), tbCorreo.getText(), tbTelefono.getText());
+                                DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
+                                modelo.setRowCount(0);
+                                modelo.setColumnCount(0);
+                                CargarData();
+                                Limpiar();
+                            }
+                        }
+                    }
+                }
+            }
+    }                                          
 
-    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {                                          
         Menu menu = new Menu();
         menu.show();
         this.dispose();
-    }//GEN-LAST:event_btnInicioActionPerformed
+    }                                         
 
-    private void tbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCerrarActionPerformed
+    private void tbCerrarActionPerformed(java.awt.event.ActionEvent evt) {                                         
         this.dispose();
-    }//GEN-LAST:event_tbCerrarActionPerformed
+    }                                        
 
-    private void tbMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbMinimizarActionPerformed
+    private void tbMinimizarActionPerformed(java.awt.event.ActionEvent evt) {                                            
         this.setState(ICONIFIED);
-    }//GEN-LAST:event_tbMinimizarActionPerformed
+    }                                           
 
-    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {                                       
         
-    }//GEN-LAST:event_RegistrosMouseClicked
+    }                                      
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -404,7 +461,7 @@ public class Cliente extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
     private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnGuardar;
@@ -431,5 +488,5 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JTextField tbNombre;
     private javax.swing.JTextField tbRTN;
     private javax.swing.JTextField tbTelefono;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
