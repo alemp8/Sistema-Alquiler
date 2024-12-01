@@ -20,6 +20,7 @@ public class Recursos extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Recursos Humanos");
+        btnModificar.setEnabled(false);
         CargarTabla();
     }
 
@@ -46,7 +47,7 @@ public class Recursos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         tbFiltro = new javax.swing.JTextField();
         btnAgregar1 = new sistemagestionempresa.vistas.botones();
-        btnAgregar2 = new sistemagestionempresa.vistas.botones();
+        btnModificar = new sistemagestionempresa.vistas.botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -213,18 +214,18 @@ public class Recursos extends javax.swing.JFrame {
             }
         });
 
-        btnAgregar2.setBackground(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar2.setText("Modificar");
-        btnAgregar2.setBorderColor(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setColor(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setColorClick(new java.awt.Color(0, 102, 102));
-        btnAgregar2.setColorOver(new java.awt.Color(0, 102, 102));
-        btnAgregar2.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnAgregar2.setRadio(40);
-        btnAgregar2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setBackground(new java.awt.Color(255, 153, 0));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
+        btnModificar.setBorderColor(new java.awt.Color(255, 153, 0));
+        btnModificar.setColor(new java.awt.Color(255, 153, 0));
+        btnModificar.setColorClick(new java.awt.Color(255, 51, 0));
+        btnModificar.setColorOver(new java.awt.Color(255, 51, 0));
+        btnModificar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnModificar.setRadio(40);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregar2ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -261,11 +262,11 @@ public class Recursos extends javax.swing.JFrame {
                 .addGap(70, 70, 70)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(tbFiltro)
+                .addGap(18, 18, 18)
                 .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
         );
         paneles1Layout.setVerticalGroup(
@@ -287,20 +288,15 @@ public class Recursos extends javax.swing.JFrame {
                             .addComponent(btnPuestos, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneles1Layout.createSequentialGroup()
+                    .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(paneles1Layout.createSequentialGroup()
-                            .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel2)
-                                .addComponent(tbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(18, 18, 18))
-                        .addGroup(paneles1Layout.createSequentialGroup()
-                            .addComponent(btnAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGap(7, 7, 7))))
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(tbFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -353,21 +349,14 @@ public class Recursos extends javax.swing.JFrame {
     private void btnPuestos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPuestos1ActionPerformed
         Planilla plan = new Planilla();
         plan.show();
+        this.dispose();
     }//GEN-LAST:event_btnPuestos1ActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        btnModificar.setEnabled(true);
         fila = Registros.rowAtPoint(evt.getPoint());
         codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
     }//GEN-LAST:event_RegistrosMouseClicked
-
-    private void btnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2ActionPerformed
-        if (codigo == 0) {
-            JOptionPane.showMessageDialog(this, "Selecciona el registro que quieres modificar");
-        } else if (codigo != 0) {
-            Planilla planilla = new Planilla(codigo);
-            planilla.show();
-        }
-    }//GEN-LAST:event_btnAgregar2ActionPerformed
 
     private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
         if (codigo == 0) {
@@ -377,6 +366,11 @@ public class Recursos extends javax.swing.JFrame {
             CargarTabla();
         }
     }//GEN-LAST:event_btnAgregar1ActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+       ModificarPlanilla plan = new ModificarPlanilla(codigo);
+       plan.show();
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -414,11 +408,11 @@ public class Recursos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnAgregar1;
-    private sistemagestionempresa.vistas.botones btnAgregar2;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnEmpleados;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnMinimizar;
+    private sistemagestionempresa.vistas.botones btnModificar;
     private sistemagestionempresa.vistas.botones btnPuestos;
     private sistemagestionempresa.vistas.botones btnPuestos1;
     private sistemagestionempresa.vistas.botones btnSucursales;

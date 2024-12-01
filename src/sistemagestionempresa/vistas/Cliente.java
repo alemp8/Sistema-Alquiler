@@ -1,22 +1,83 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
+import sistemagestionempresa.Controladores.ControladorClientes;
+import sistemagestionempresa.Modelos.Entidades.Clientes;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class Cliente extends javax.swing.JFrame {
-
+    ControladorClientes controlador = new ControladorClientes();
+    Clientes cliente = new Clientes();
+    int codigo =0;
+    int fila;
+    
     public Cliente() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Clientes");
-      
+        CargarTabla();
     }
 
+    public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        } 
+        if (tbRTN.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        if (tbCorreo.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        if (tbDireccion.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        if (tbTelefono.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
+    private void Guardar() {
+        cliente.setNombre(tbNombre.getText());
+        cliente.setIdCliente(codigo);
+        cliente.setRTN(tbRTN.getText());
+        cliente.setDireccion(tbDireccion.getText());
+        cliente.setTelefono(tbTelefono.getText());
+        cliente.setCorreo(tbCorreo.getText());
+        controlador.Guardar(cliente);
+    }
+
+    private void Limpiar() {
+        tbNombre.setText("");
+        tbRTN.setText("");
+        tbDireccion.setText("");
+        tbTelefono.setText("");
+        tbCorreo.setText("");
+        codigo = 0;
+    }
+
+    public void CargarTabla() {
+        cliente.setNombre(tbNombre.getText());
+        cliente.setIdCliente(codigo);
+        cliente.setRTN(tbRTN.getText());
+        cliente.setDireccion(tbDireccion.getText());
+        cliente.setTelefono(tbTelefono.getText());
+        cliente.setCorreo(tbCorreo.getText());
+        controlador.Tabla(Registros, cliente);
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -347,11 +408,23 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-       
+        cliente.setNombre(tbNombre.getText());
+        cliente.setIdCliente(codigo);
+        cliente.setRTN(tbRTN.getText());
+        cliente.setDireccion(tbDireccion.getText());
+        cliente.setTelefono(tbTelefono.getText());
+        cliente.setCorreo(tbCorreo.getText());
+        controlador.Eliminar(cliente);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-     
+         if (!Validacion()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese todos los datos requeridos.");
+        } else {
+            Guardar();
+            Limpiar();
+            CargarTabla();
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
@@ -369,7 +442,13 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_tbMinimizarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
-        
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbRTN.setText(String.valueOf(Registros.getValueAt(fila, 1)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 2)));
+        tbDireccion.setText(String.valueOf(Registros.getValueAt(fila, 3)));
+        tbCorreo.setText(String.valueOf(Registros.getValueAt(fila, 4)));
+        tbTelefono.setText(String.valueOf(Registros.getValueAt(fila, 5)));
     }//GEN-LAST:event_RegistrosMouseClicked
 
     public static void main(String args[]) {

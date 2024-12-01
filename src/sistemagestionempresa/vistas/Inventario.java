@@ -1,31 +1,37 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
 import java.math.BigDecimal;
+import sistemagestionempresa.Controladores.ControladorProductos;
+import sistemagestionempresa.Modelos.Entidades.Productos;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class Inventario extends javax.swing.JFrame {
-    
+
+    ControladorProductos controlador = new ControladorProductos();
+    Productos producto = new Productos();
+    int fila;
+    int id;
+    String categoria;
+    String proveedor;
+
     public Inventario() {
-         this.setUndecorated(true);
+        this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Inventario");
+        btnModificar.setEnabled(false);
         CargarTabla();
     }
-    
-    public void CargarTabla(){
-    
+
+    public void CargarTabla() {
+        controlador.Tabla(Registros, producto);
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -45,7 +51,7 @@ public class Inventario extends javax.swing.JFrame {
         btnMinimizar = new sistemagestionempresa.vistas.botones();
         btnCerrar = new sistemagestionempresa.vistas.botones();
         btnAgregar1 = new sistemagestionempresa.vistas.botones();
-        btnAgregar2 = new sistemagestionempresa.vistas.botones();
+        btnModificar = new sistemagestionempresa.vistas.botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,16 +61,21 @@ public class Inventario extends javax.swing.JFrame {
 
         Registros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Codigo", "Nombre", "Categoria", "Proveedor", "Cantidad", "Costo", "ISV", "Precio Venta"
+                "Id", "Codigo", "Nombre", "Descripcion", "Cantidad", "Costo", "Precio Alquiler", "Vence", "Categoria", "Proveedor"
             }
         ));
         Registros.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Registros);
 
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
@@ -197,16 +208,26 @@ public class Inventario extends javax.swing.JFrame {
         btnAgregar1.setColorOver(new java.awt.Color(204, 0, 0));
         btnAgregar1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
         btnAgregar1.setRadio(40);
+        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar1ActionPerformed(evt);
+            }
+        });
 
-        btnAgregar2.setBackground(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar2.setText("Modificar");
-        btnAgregar2.setBorderColor(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setColor(new java.awt.Color(0, 153, 102));
-        btnAgregar2.setColorClick(new java.awt.Color(0, 102, 102));
-        btnAgregar2.setColorOver(new java.awt.Color(0, 102, 102));
-        btnAgregar2.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnAgregar2.setRadio(40);
+        btnModificar.setBackground(new java.awt.Color(0, 153, 102));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setText("Modificar");
+        btnModificar.setBorderColor(new java.awt.Color(0, 153, 102));
+        btnModificar.setColor(new java.awt.Color(0, 153, 102));
+        btnModificar.setColorClick(new java.awt.Color(0, 102, 102));
+        btnModificar.setColorOver(new java.awt.Color(0, 102, 102));
+        btnModificar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnModificar.setRadio(40);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout paneles1Layout = new javax.swing.GroupLayout(paneles1);
         paneles1.setLayout(paneles1Layout);
@@ -246,7 +267,7 @@ public class Inventario extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 44, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -275,7 +296,7 @@ public class Inventario extends javax.swing.JFrame {
                     .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                         .addComponent(btnAgregar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(4, 4, 4)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -306,26 +327,56 @@ public class Inventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizarActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-      Menu menu = new Menu();
-      menu.show();
-      this.dispose();
+        Menu menu = new Menu();
+        menu.show();
+        this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
-      Categoria cat = new Categoria();
-      cat.show();
+        Categoria cat = new Categoria();
+        cat.show();
     }//GEN-LAST:event_btnCategoriaActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-     Proveedor prov = new Proveedor();
-     prov.show();
-     this.dispose();
+        Proveedor prov = new Proveedor();
+        prov.show();
+        this.dispose();
     }//GEN-LAST:event_btnProveedoresActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-      Producto prod = new Producto();
-      prod.show();
+        Producto prod = new Producto();
+        prod.show();
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        ModificarProducto mod = new ModificarProducto(producto);
+        mod.show();
+        this.dispose();
+    }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        btnModificar.setEnabled(true);
+        fila = Registros.rowAtPoint(evt.getPoint());
+        producto.setIdProducto(Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0))));
+        producto.setCodigo(String.valueOf(Registros.getValueAt(fila, 1)));
+        producto.setNombre(String.valueOf(Registros.getValueAt(fila, 2)));
+        producto.setDescripcion(String.valueOf(Registros.getValueAt(fila, 3)));
+        producto.setCantidad(Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 4))));
+        String costoStr = String.valueOf(Registros.getValueAt(fila, 5));
+        String precioStr = String.valueOf(Registros.getValueAt(fila, 6));
+        BigDecimal costo = new BigDecimal(costoStr);
+        BigDecimal precio = new BigDecimal(precioStr);
+        producto.setCosto(costo);
+        producto.setPrecio(precio);
+        categoria = String.valueOf(Registros.getValueAt(fila, 7));
+        proveedor = String.valueOf(Registros.getValueAt(fila, 8));
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+        controlador.Eliminar(producto);
+        CargarTabla();
+    }//GEN-LAST:event_btnAgregar1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,12 +417,12 @@ public class Inventario extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnAgregar;
     private sistemagestionempresa.vistas.botones btnAgregar1;
-    private sistemagestionempresa.vistas.botones btnAgregar2;
     private sistemagestionempresa.vistas.botones btnBuscar;
     private sistemagestionempresa.vistas.botones btnCategoria;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnMinimizar;
+    private sistemagestionempresa.vistas.botones btnModificar;
     private sistemagestionempresa.vistas.botones btnProveedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

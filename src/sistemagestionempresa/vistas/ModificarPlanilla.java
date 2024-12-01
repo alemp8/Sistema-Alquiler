@@ -22,23 +22,29 @@ import sistemagestionempresa.Modelos.Entidades.Usuarios;
  *
  * @author Victor Alejandro
  */
-public class Planilla extends javax.swing.JFrame {
+public class ModificarPlanilla extends javax.swing.JFrame {
 
     int fila;
-    int codigo = 0;
     Planillas planilla = new Planillas();
     ControladorPlanillas controlador = new ControladorPlanillas();
     private DefaultTableModel modelo;
 
-    public Planilla() {
+    public ModificarPlanilla() {
+        initComponents();
+    }
+
+    public ModificarPlanilla(int codDetalle) {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         txtFecha.setText(fecha);
-        modelo = (DefaultTableModel) Registros.getModel();
         this.setLocationRelativeTo(null);
         this.setTitle("Planilla");
+        controlador.Detalle(Registros, codDetalle);
+        modelo = (DefaultTableModel) Registros.getModel();
+        String codigo = String.valueOf(codDetalle);
+        txtCodigo.setText(codigo);
         CargarCombos();
     }
 
@@ -74,17 +80,19 @@ public class Planilla extends javax.swing.JFrame {
         btnAgregar = new sistemagestionempresa.vistas.botones();
         btnQuitar = new sistemagestionempresa.vistas.botones();
         botones1 = new sistemagestionempresa.vistas.botones();
+        btnModificar = new sistemagestionempresa.vistas.botones();
         jScrollPane1 = new javax.swing.JScrollPane();
         Registros = new sistemagestionempresa.vistas.tablaDark();
         tbCerrar = new sistemagestionempresa.vistas.botones();
         btnGuardar = new sistemagestionempresa.vistas.botones();
+        txtCodigo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         paneles1.setBackground(new java.awt.Color(246, 246, 246));
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
-        jLabel1.setText("Registro de Planilla");
+        jLabel1.setText("Modificar Planilla N. ");
 
         paneles2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -229,39 +237,54 @@ public class Planilla extends javax.swing.JFrame {
             }
         });
 
+        btnModificar.setBackground(new java.awt.Color(255, 102, 0));
+        btnModificar.setForeground(new java.awt.Color(255, 255, 255));
+        btnModificar.setBorderColor(new java.awt.Color(255, 102, 0));
+        btnModificar.setColor(new java.awt.Color(255, 102, 0));
+        btnModificar.setColorClick(new java.awt.Color(255, 102, 0));
+        btnModificar.setColorOver(new java.awt.Color(255, 102, 0));
+        btnModificar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        btnModificar.setRadio(100);
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneles3Layout = new javax.swing.GroupLayout(paneles3);
         paneles3.setLayout(paneles3Layout);
         paneles3Layout.setHorizontalGroup(
             paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneles3Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
+                .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel12))
+                .addGap(18, 18, 18)
+                .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(18, 18, 18)
+                .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbBono, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(18, 18, 18)
+                .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tbDedu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10))
+                .addGap(18, 18, 18)
+                .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(tbNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(paneles3Layout.createSequentialGroup()
                         .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(paneles3Layout.createSequentialGroup()
-                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbBruto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(18, 18, 18)
-                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbBono, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addGap(18, 18, 18)
-                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tbDedu, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addGap(18, 18, 18)
-                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addComponent(tbNeto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(botones1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(botones1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         paneles3Layout.setVerticalGroup(
@@ -287,7 +310,11 @@ public class Planilla extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneles3Layout.createSequentialGroup()
+                        .addGroup(paneles3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -296,10 +323,15 @@ public class Planilla extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N.", "Empleado", "Salario Bruto", "Bonificaciones", "Deducciones", "Salario Neto"
+                "Detalle", "N.", "Empleado", "Salario Bruto", "Bonificaciones", "Deducciones", "Salario Neto"
             }
         ));
         Registros.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Registros);
 
         tbCerrar.setBackground(new java.awt.Color(255, 0, 0));
@@ -329,17 +361,15 @@ public class Planilla extends javax.swing.JFrame {
             }
         });
 
+        txtCodigo.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
+        txtCodigo.setText("0");
+
         javax.swing.GroupLayout paneles1Layout = new javax.swing.GroupLayout(paneles1);
         paneles1.setLayout(paneles1Layout);
         paneles1Layout.setHorizontalGroup(
             paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneles1Layout.createSequentialGroup()
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(paneles1Layout.createSequentialGroup()
-                        .addGap(406, 406, 406)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(tbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -348,7 +378,14 @@ public class Planilla extends javax.swing.JFrame {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(paneles3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(paneles2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 26, Short.MAX_VALUE)))
+                        .addGap(0, 26, Short.MAX_VALUE))
+                    .addGroup(paneles1Layout.createSequentialGroup()
+                        .addGap(304, 304, 304)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCodigo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(tbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         paneles1Layout.setVerticalGroup(
@@ -357,7 +394,9 @@ public class Planilla extends javax.swing.JFrame {
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel1))
+                        .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(txtCodigo)))
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(tbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -401,20 +440,21 @@ public class Planilla extends javax.swing.JFrame {
     public void Guardar() {
         Date fechaPlanilla = new Date(txtFecha.getText());
         Usuarios usuario = (Usuarios) cbUsuarios.getSelectedItem();
+        int codPlanilla = Integer.parseInt(txtCodigo.getText());
+        planilla.setIdPlanilla(codPlanilla);
         planilla.setRealizadapor(usuario.getIdUsuario());
         planilla.setFecha(fechaPlanilla);
-        planilla.setIdPlanilla(codigo);
         List<DetallePlanilla> lista = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
 
         for (int i = 0; i < modelo.getRowCount(); i++) {
             DetallePlanilla detalle = new DetallePlanilla();
-
-            detalle.setIdEmpleado(Integer.parseInt(modelo.getValueAt(i, 0).toString()));
-            String sueldoBruto = modelo.getValueAt(i, 2).toString();
-            String bono = modelo.getValueAt(i, 3).toString();
-            String deducciones = modelo.getValueAt(i, 4).toString();
-            String neto = modelo.getValueAt(i, 5).toString();
+            detalle.setIdDetalle(Integer.parseInt(modelo.getValueAt(i, 0).toString()));
+            detalle.setIdEmpleado(Integer.parseInt(modelo.getValueAt(i, 1).toString()));
+            String sueldoBruto = modelo.getValueAt(i, 3).toString();
+            String bono = modelo.getValueAt(i, 4).toString();
+            String deducciones = modelo.getValueAt(i, 5).toString();
+            String neto = modelo.getValueAt(i, 6).toString();
             detalle.setSueldoBruto(new BigDecimal(sueldoBruto));
             detalle.setBonificaciones(new BigDecimal(bono));
             detalle.setDeducciones(new BigDecimal(deducciones));
@@ -423,7 +463,7 @@ public class Planilla extends javax.swing.JFrame {
         }
 
         planilla.setDetalle(lista);
-        controlador.Guardar(planilla);
+        controlador.Modificar(planilla);
     }
 
     private void cbEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEmpleadosActionPerformed
@@ -454,26 +494,50 @@ public class Planilla extends javax.swing.JFrame {
     }//GEN-LAST:event_botones1ActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        String[] datos = new String[6];
+        String[] datos = new String[7];
 
-        datos[0] = tbCodigo.getText();
-        datos[1] = cbEmpleados.getSelectedItem().toString();
-        datos[2] = tbBruto.getText();
-        datos[3] = tbBono.getText();
-        datos[4] = tbDedu.getText();
-        datos[5] = tbNeto.getText();
+        datos[0] = "0";
+        datos[1] = tbCodigo.getText();
+        datos[2] = cbEmpleados.getSelectedItem().toString();
+        datos[3] = tbBruto.getText();
+        datos[4] = tbBono.getText();
+        datos[5] = tbDedu.getText();
+        datos[6] = tbNeto.getText();
 
         modelo.addRow(datos);
         Limpiar();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void cbUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUsuariosActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_cbUsuariosActionPerformed
 
     private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
         modelo.removeRow(Registros.getSelectedRow());
     }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+        tbCodigo.setText(String.valueOf(Registros.getValueAt(fila, 1)));
+        tbCodigo.setEnabled(false);
+        tbBruto.setText(String.valueOf(Registros.getValueAt(fila, 3)));
+        tbBruto.setEnabled(false);
+        tbBono.setText(String.valueOf(Registros.getValueAt(fila, 4)));
+        tbDedu.setText(String.valueOf(Registros.getValueAt(fila, 5)));
+        cbEmpleados.setEnabled(false);
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        String bono = tbBono.getText();
+        String deducciones = tbDedu.getText();
+        String sueldoNeto = tbNeto.getText();
+        Registros.setValueAt(bono, fila, 4);  
+        Registros.setValueAt(deducciones, fila, 5);
+        Registros.setValueAt(sueldoNeto, fila, 6);  
+        cbEmpleados.setEnabled(true);
+        tbCodigo.setEnabled(true);
+        tbBruto.setEnabled(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public void Limpiar() {
         tbCodigo.setText("");
@@ -498,21 +562,23 @@ public class Planilla extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Planilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarPlanilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Planilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarPlanilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Planilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarPlanilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Planilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ModificarPlanilla.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Planilla().setVisible(true);
+                new ModificarPlanilla().setVisible(true);
             }
         });
     }
@@ -522,6 +588,7 @@ public class Planilla extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.botones botones1;
     private sistemagestionempresa.vistas.botones btnAgregar;
     private sistemagestionempresa.vistas.botones btnGuardar;
+    private sistemagestionempresa.vistas.botones btnModificar;
     private sistemagestionempresa.vistas.botones btnQuitar;
     private javax.swing.JComboBox<String> cbEmpleados;
     private javax.swing.JComboBox<String> cbUsuarios;
@@ -544,6 +611,7 @@ public class Planilla extends javax.swing.JFrame {
     private javax.swing.JTextField tbCodigo;
     private javax.swing.JTextField tbDedu;
     private javax.swing.JTextField tbNeto;
+    private javax.swing.JLabel txtCodigo;
     private javax.swing.JLabel txtFecha;
     // End of variables declaration//GEN-END:variables
 }

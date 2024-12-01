@@ -82,6 +82,7 @@ public class Proveedor extends javax.swing.JFrame {
         btnEliminar = new sistemagestionempresa.vistas.botones();
         btnGuardar = new sistemagestionempresa.vistas.botones();
         btnInicio = new sistemagestionempresa.vistas.botones();
+        btnInventario = new sistemagestionempresa.vistas.botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -125,7 +126,7 @@ public class Proveedor extends javax.swing.JFrame {
                     .addGroup(paneles2Layout.createSequentialGroup()
                         .addGap(227, 227, 227)
                         .addComponent(jLabel1)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         paneles2Layout.setVerticalGroup(
             paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -254,6 +255,21 @@ public class Proveedor extends javax.swing.JFrame {
             }
         });
 
+        btnInventario.setBackground(new java.awt.Color(128, 150, 113));
+        btnInventario.setForeground(new java.awt.Color(255, 255, 255));
+        btnInventario.setText("Inventario");
+        btnInventario.setBorderColor(new java.awt.Color(128, 150, 113));
+        btnInventario.setColor(new java.awt.Color(128, 150, 113));
+        btnInventario.setColorClick(new java.awt.Color(179, 183, 146));
+        btnInventario.setColorOver(new java.awt.Color(179, 183, 146));
+        btnInventario.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
+        btnInventario.setRadio(40);
+        btnInventario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInventarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneles1Layout = new javax.swing.GroupLayout(paneles1);
         paneles1.setLayout(paneles1Layout);
         paneles1Layout.setHorizontalGroup(
@@ -294,13 +310,15 @@ public class Proveedor extends javax.swing.JFrame {
                                 .addComponent(jLabel6)
                                 .addComponent(tbTelefono, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneles1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(370, 370, 370)
+                .addGap(397, 397, 397)
+                .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnInventario, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(tbMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +335,9 @@ public class Proveedor extends javax.swing.JFrame {
                             .addComponent(tbMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))))
                 .addGap(34, 34, 34)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -431,6 +451,12 @@ public class Proveedor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void btnInventarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInventarioActionPerformed
+        Inventario inventario = new Inventario();
+        inventario.show();
+        this.dispose();
+    }//GEN-LAST:event_btnInventarioActionPerformed
+
     private void Guardar(){
         String RTN = tbRTN.getText();
         String nombre = tbNombre.getText();
@@ -509,6 +535,7 @@ public class Proveedor extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnGuardar;
     private sistemagestionempresa.vistas.botones btnInicio;
+    private sistemagestionempresa.vistas.botones btnInventario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

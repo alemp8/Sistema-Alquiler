@@ -2,13 +2,19 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import sistemagestionempresa.Controladores.ControladorAlquileres;
+import sistemagestionempresa.Modelos.Entidades.Alquiler;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class GestionAlquileres extends javax.swing.JFrame {
-
+    ControladorAlquileres controlador = new ControladorAlquileres();
+    Alquiler alquiler = new Alquiler();
+    //DetalleAlquiler detalle = new DetalleAlquiler();
+    int codigo = 0;
+    int fila;
     
     public GestionAlquileres() {
        this.setUndecorated(true);
@@ -17,6 +23,11 @@ public class GestionAlquileres extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Gestio de Alquileres");
+        CargarTabla();
+    }
+    
+    public void CargarTabla() {
+        controlador.Tabla(Registros);
     }
 
     @SuppressWarnings("unchecked")
@@ -26,15 +37,14 @@ public class GestionAlquileres extends javax.swing.JFrame {
         paneles1 = new sistemagestionempresa.vistas.paneles();
         paneles2 = new sistemagestionempresa.vistas.paneles();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaDark1 = new sistemagestionempresa.vistas.tablaDark();
+        Registros = new sistemagestionempresa.vistas.tablaDark();
         jLabel1 = new javax.swing.JLabel();
         btnInicio = new sistemagestionempresa.vistas.botones();
         btnCerrar = new sistemagestionempresa.vistas.botones();
         btnMinimizar = new sistemagestionempresa.vistas.botones();
         btnClientes = new sistemagestionempresa.vistas.botones();
         btnVentas = new sistemagestionempresa.vistas.botones();
-        btnAgregar1 = new sistemagestionempresa.vistas.botones();
-        btnAgregar = new sistemagestionempresa.vistas.botones();
+        btnEliminar = new sistemagestionempresa.vistas.botones();
         btnCobrar = new sistemagestionempresa.vistas.botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,19 +53,24 @@ public class GestionAlquileres extends javax.swing.JFrame {
 
         paneles2.setBackground(new java.awt.Color(128, 150, 113));
 
-        tablaDark1.setModel(new javax.swing.table.DefaultTableModel(
+        Registros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "N. Venta", "Cliente", "Fecha", "Codigo", "Nombre", "Cantidad", "Retorno"
+                "N. Venta", "Fecha", "Cliente", "Realizada por", "Monto"
             }
         ));
-        tablaDark1.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        jScrollPane1.setViewportView(tablaDark1);
+        Registros.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(Registros);
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -138,7 +153,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
 
         btnVentas.setBackground(new java.awt.Color(128, 150, 113));
         btnVentas.setForeground(new java.awt.Color(255, 255, 255));
-        btnVentas.setText("Ventas");
+        btnVentas.setText("Alquilar");
         btnVentas.setBorderColor(new java.awt.Color(128, 150, 113));
         btnVentas.setColor(new java.awt.Color(128, 150, 113));
         btnVentas.setColorClick(new java.awt.Color(179, 183, 146));
@@ -151,25 +166,20 @@ public class GestionAlquileres extends javax.swing.JFrame {
             }
         });
 
-        btnAgregar1.setBackground(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar1.setText("Eliminar");
-        btnAgregar1.setBorderColor(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setColor(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setColorClick(new java.awt.Color(204, 0, 0));
-        btnAgregar1.setColorOver(new java.awt.Color(204, 0, 0));
-        btnAgregar1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnAgregar1.setRadio(40);
-
-        btnAgregar.setBackground(new java.awt.Color(0, 153, 102));
-        btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar.setText("Modificar");
-        btnAgregar.setBorderColor(new java.awt.Color(0, 153, 102));
-        btnAgregar.setColor(new java.awt.Color(0, 153, 102));
-        btnAgregar.setColorClick(new java.awt.Color(0, 102, 102));
-        btnAgregar.setColorOver(new java.awt.Color(0, 102, 102));
-        btnAgregar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnAgregar.setRadio(40);
+        btnEliminar.setBackground(new java.awt.Color(255, 0, 0));
+        btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setBorderColor(new java.awt.Color(255, 0, 0));
+        btnEliminar.setColor(new java.awt.Color(255, 0, 0));
+        btnEliminar.setColorClick(new java.awt.Color(204, 0, 0));
+        btnEliminar.setColorOver(new java.awt.Color(204, 0, 0));
+        btnEliminar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnEliminar.setRadio(40);
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCobrar.setBackground(new java.awt.Color(51, 51, 255));
         btnCobrar.setForeground(new java.awt.Color(255, 255, 255));
@@ -194,9 +204,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneles1Layout.createSequentialGroup()
                         .addGap(260, 260, 260)
                         .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,11 +241,9 @@ public class GestionAlquileres extends javax.swing.JFrame {
                     .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,13 +283,22 @@ public class GestionAlquileres extends javax.swing.JFrame {
     private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
         Facturacion fact = new Facturacion();
         fact.show();
-        this.dispose();
     }//GEN-LAST:event_btnVentasActionPerformed
 
     private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
         Retorno retorno = new Retorno();
         retorno.show();
     }//GEN-LAST:event_btnCobrarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        controlador.Eliminar(codigo);
+        CargarTabla();
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,11 +336,11 @@ public class GestionAlquileres extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private sistemagestionempresa.vistas.botones btnAgregar;
-    private sistemagestionempresa.vistas.botones btnAgregar1;
+    private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnClientes;
     private sistemagestionempresa.vistas.botones btnCobrar;
+    private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnMinimizar;
     private sistemagestionempresa.vistas.botones btnVentas;
@@ -333,6 +348,5 @@ public class GestionAlquileres extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
-    private sistemagestionempresa.vistas.tablaDark tablaDark1;
     // End of variables declaration//GEN-END:variables
 }

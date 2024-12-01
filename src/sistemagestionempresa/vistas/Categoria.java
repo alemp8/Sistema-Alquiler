@@ -7,52 +7,55 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistemagestionempresa.Controladores.ControladorCategorias;
+import sistemagestionempresa.Modelos.Entidades.Categorias;
 
 /**
  *
  * @author Victor Alejandro
  */
 public class Categoria extends javax.swing.JFrame {
-    Conexion cone = new Conexion();
+
+    ControladorCategorias controlador = new ControladorCategorias();
+    Categorias cat = new Categorias();
     int codigo;
     int fila;
-    
+
     public Categoria() {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Categoria");
-        //CargarTabla();
+        CargarTabla();
     }
 
-     private void CargarTabla(){
-       DefaultTableModel  modelo = (DefaultTableModel)Registros.getModel();
-       modelo.setRowCount(0);
-       PreparedStatement ps;
-       ResultSet rs;
-       ResultSetMetaData rsmd;
-       int columnas;
-       
-       try {
-        Connection conn = cone.obtenerConexion();
-        ps = conn.prepareStatement("SELECT idCat, descripcion  FROM Categoria");
-        rs = ps.executeQuery();
-        rsmd = rs.getMetaData();
-        columnas = rsmd.getColumnCount();
-        while (rs.next()) {
-            Object[] fila = new Object[columnas];
-            for (int i = 0; i < columnas; i++) {
-                fila[i] = rs.getObject(i + 1);
-            }
-            modelo.addRow(fila);
+    public boolean Validacion() {
+        if (tbNombre.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo 'Nombre' no puede estar vacío.");
+            return false;
+        } else {
+            return true;
         }
     }
-       catch(Exception ex){
-       JOptionPane.showMessageDialog(null, ex.toString());
-       }
-   }
-     
+
+    private void Guardar() {
+        cat.setNombre(tbNombre.getText());
+        cat.setIdCat(codigo);
+        controlador.Guardar(cat);
+    }
+
+    private void Limpiar() {
+        tbNombre.setText("");
+        codigo = 0;
+    }
+
+    public void CargarTabla() {
+        cat.setNombre(tbNombre.getText());
+        cat.setIdCat(codigo);
+        controlador.Tabla(Registros, cat);
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -250,67 +253,33 @@ public class Categoria extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tbCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbCerrarActionPerformed
-       this.dispose();
+        this.dispose();
     }//GEN-LAST:event_tbCerrarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-    if (!Validar()) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese todos los datos requeridos.");
-    } else {
-        Guardar(); 
-        Limpiar();
-    } 
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
-       fila = Registros.rowAtPoint(evt.getPoint());
-       codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
-       tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
-    }//GEN-LAST:event_RegistrosMouseClicked
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        try{
-            Connection conn = cone.obtenerConexion();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Categoria WHERE idCat = ?");
-            ps.setInt(1,codigo);
-            ps.executeUpdate();
-            
+        if (!Validacion()) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese todos los datos requeridos.");
+        } else {
+            Guardar();
             Limpiar();
             CargarTabla();
         }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }  
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+        codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
+        tbNombre.setText(String.valueOf(Registros.getValueAt(fila, 1)));
+    }//GEN-LAST:event_RegistrosMouseClicked
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        cat.setNombre(tbNombre.getText());
+        cat.setIdCat(codigo);
+        controlador.Eliminar(cat);
+        Limpiar();
+        CargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void Guardar(){
-        String descripcion = tbNombre.getText();
-        
-        try{
-            Connection conn = cone.obtenerConexion();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Categoria(descripcion) Values (?)");
-            ps.setString(1,descripcion);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registro exitoso");
-            CargarTabla();
-        }
-        catch(Exception ex){
-            JOptionPane.showMessageDialog(null, ex.toString());
-        }   
-    }
-    
-    private void Limpiar(){
-        tbNombre.setText("");
-    }
-    
-    private boolean Validar() {
-    if (tbNombre.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "El campo Nombre es obligatorio.");
-        return false;
-    } 
-    return true;
-}
-   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

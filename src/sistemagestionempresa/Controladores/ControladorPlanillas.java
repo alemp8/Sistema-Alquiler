@@ -16,11 +16,11 @@ public class ControladorPlanillas {
     RepositorioPlanillas repo = new RepositorioPlanillas();
 
     public void Guardar(Planillas entidad) {
-        if (entidad.getIdPlanilla() == 0) {
-            repo.Guardar(entidad);
-        } else {
-            repo.Modificar(entidad);
-        }   
+      repo.Guardar(entidad);        
+    }
+    
+    public void Modificar(Planillas entidad) {
+      repo.Modificar(entidad);  
     }
 
     public void Tabla(JTable tabla) {
@@ -33,6 +33,10 @@ public class ControladorPlanillas {
 
     public void Eliminar(int codigo) {
        repo.Eliminar(codigo);
+    }
+    
+    public void EliminarDetalle(int codigo) {
+       repo.EliminarDetalle(codigo);
     }
     
     public DefaultComboBoxModel llenarEmpleados(){

@@ -29,6 +29,17 @@ public class DetallePlanilla {
         this.sueldoNeto = sueldoNeto;
     }
 
+    public DetallePlanilla(int idDetalle, int idEmpleado, BigDecimal sueldoBruto, BigDecimal bonificaciones, BigDecimal deducciones, BigDecimal sueldoNeto) {
+        this.idDetalle = idDetalle;
+        this.idEmpleado = idEmpleado;
+        this.sueldoBruto = sueldoBruto;
+        this.bonificaciones = bonificaciones;
+        this.deducciones = deducciones;
+        this.sueldoNeto = sueldoNeto;
+    }
+    
+    
+
     public DetallePlanilla() {
     }
 

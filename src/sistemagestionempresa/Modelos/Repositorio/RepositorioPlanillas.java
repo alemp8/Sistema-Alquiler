@@ -10,9 +10,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -67,11 +64,11 @@ public class RepositorioPlanillas {
     public void Modificar(Planillas entidad) {
         Connection conn = null;
         PreparedStatement stmtPlanilla = null;
-        PreparedStatement stmtDetalle = null;
+        PreparedStatement stmtDetalleUpdate = null;
+        PreparedStatement stmtDetalleInsert = null;
 
         try {
             conn = cone.obtenerConexion();
-
             String sqlPlanilla = "UPDATE Planillas SET fecha = ?, realizadaPor = ? WHERE idPlanilla = ?";
             stmtPlanilla = conn.prepareStatement(sqlPlanilla);
             stmtPlanilla.setDate(1, new java.sql.Date(entidad.getFecha().getTime()));
@@ -80,15 +77,27 @@ public class RepositorioPlanillas {
             stmtPlanilla.executeUpdate();
 
             for (DetallePlanilla detalle : entidad.getDetalle()) {
-                String sqlDetalle = "UPDATE DetallePlanilla SET idEmpleado = ?, sueldoBruto = ?, bonificaciones = ?, deducciones = ?, sueldoNeto = ? WHERE idDetalle = ?";
-                stmtDetalle = conn.prepareStatement(sqlDetalle);
-                stmtDetalle.setInt(1, detalle.getIdEmpleado());
-                stmtDetalle.setBigDecimal(2, detalle.getSueldoBruto());
-                stmtDetalle.setBigDecimal(3, detalle.getBonificaciones());
-                stmtDetalle.setBigDecimal(4, detalle.getDeducciones());
-                stmtDetalle.setBigDecimal(5, detalle.getSueldoNeto());
-                stmtDetalle.setInt(6, detalle.getIdDetalle());
-                stmtDetalle.executeUpdate();
+                if (detalle.getIdDetalle() != 0) {
+                    String sqlDetalleUpdate = "UPDATE DetallePlanilla SET idEmpleado = ?, sueldoBruto = ?, bonificaciones = ?, deducciones = ?, sueldoNeto = ? WHERE idDetalle = ?";
+                    stmtDetalleUpdate = conn.prepareStatement(sqlDetalleUpdate);
+                    stmtDetalleUpdate.setInt(1, detalle.getIdEmpleado());
+                    stmtDetalleUpdate.setBigDecimal(2, detalle.getSueldoBruto());
+                    stmtDetalleUpdate.setBigDecimal(3, detalle.getBonificaciones());
+                    stmtDetalleUpdate.setBigDecimal(4, detalle.getDeducciones());
+                    stmtDetalleUpdate.setBigDecimal(5, detalle.getSueldoNeto());
+                    stmtDetalleUpdate.setInt(6, detalle.getIdDetalle());
+                    stmtDetalleUpdate.executeUpdate();
+                } else {
+                    String sqlDetalleInsert = "INSERT INTO DetallePlanilla (idPlanilla, idEmpleado, sueldoBruto, bonificaciones, deducciones, sueldoNeto) VALUES (?, ?, ?, ?, ?, ?)";
+                    stmtDetalleInsert = conn.prepareStatement(sqlDetalleInsert);
+                    stmtDetalleInsert.setInt(1, entidad.getIdPlanilla());
+                    stmtDetalleInsert.setInt(2, detalle.getIdEmpleado());
+                    stmtDetalleInsert.setBigDecimal(3, detalle.getSueldoBruto());
+                    stmtDetalleInsert.setBigDecimal(4, detalle.getBonificaciones());
+                    stmtDetalleInsert.setBigDecimal(5, detalle.getDeducciones());
+                    stmtDetalleInsert.setBigDecimal(6, detalle.getSueldoNeto());
+                    stmtDetalleInsert.executeUpdate();
+                }
             }
 
             JOptionPane.showMessageDialog(null, "Registro exitoso");
@@ -134,7 +143,7 @@ public class RepositorioPlanillas {
         ResultSet rs;
         ResultSetMetaData rsmd;
         int columnas = 0;
-        String sql = "SELECT dp.idDetalle, dp.idPlanilla,  e.nombre, dp.sueldoBruto, "
+        String sql = "SELECT dp.idDetalle, dp.idEmpleado,  e.nombre, dp.sueldoBruto, "
                 + "dp.bonificaciones, dp.deducciones, dp.sueldoNeto "
                 + "FROM DetallePlanilla dp "
                 + "JOIN Empleados e ON dp.idEmpleado = e.idEmpleado "
@@ -219,6 +228,17 @@ public class RepositorioPlanillas {
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar: " + ex.getMessage());
+        }
+    }
+
+    public void EliminarDetalle(int idDetalle) {
+        try {
+            Connection conn = cone.obtenerConexion();
+            conn.setAutoCommit(false);
+            PreparedStatement psDetalle = conn.prepareStatement("DELETE FROM DetallePlanilla WHERE idDetalle = ?");
+            psDetalle.setInt(1, idDetalle);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar detalle: " + ex.getMessage());
         }
     }
 
