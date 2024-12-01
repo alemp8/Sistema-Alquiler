@@ -24,6 +24,10 @@ public class ControladorSucursales implements MetodosProcesos<Sucursales> {
     public void Tabla(JTable tabla, Sucursales entidad) {
        repo.CargarTabla(tabla, entidad,"Leer");
     }
+    
+    public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
 
     @Override
     public void Eliminar(Sucursales entidad) {

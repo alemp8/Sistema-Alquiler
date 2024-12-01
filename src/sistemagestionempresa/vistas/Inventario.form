@@ -69,7 +69,7 @@
                                           <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="jSeparator1" max="32767" attributes="0"/>
-                                              <Component id="tbBuscar" pref="627" max="32767" attributes="0"/>
+                                              <Component id="tbBusqueda" pref="627" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
@@ -118,7 +118,7 @@
                       <Group type="102" attributes="0">
                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="tbBuscar" min="-2" max="-2" attributes="0"/>
+                          <Component id="tbBusqueda" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                           <Component id="btnBuscar" pref="44" max="32767" attributes="0"/>
@@ -372,6 +372,9 @@
             </Property>
             <Property name="radio" type="int" value="40"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBuscarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -381,7 +384,7 @@
             <Property name="text" type="java.lang.String" value="Lista de Productos"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tbBuscar">
+        <Component class="javax.swing.JTextField" name="tbBusqueda">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d8" green="e0" red="e5" type="rgb"/>
@@ -393,6 +396,9 @@
               <Border info="null"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="tbBusquedaKeyPressed"/>
+          </Events>
         </Component>
         <Component class="sistemagestionempresa.vistas.botones" name="btnAgregar">
           <Properties>

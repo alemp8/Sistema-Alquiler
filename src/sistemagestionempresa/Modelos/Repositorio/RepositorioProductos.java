@@ -3,6 +3,7 @@ package sistemagestionempresa.Modelos.Repositorio;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.DefaultComboBoxModel;
@@ -119,5 +120,41 @@ public class RepositorioProductos implements Procesos<Productos> {
     return modelo;
     }
     
+    public void buscar(JTable table, String busqueda) {
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas = 0;
+
+        String sql = "SELECT p.idProducto, p.codigo, p.nombre, p.descripcion, p.cantidad, p.costo, p.precio, p.vence, c.descripcion, r.nombre "
+                + "FROM Productos p "
+                + "JOIN Categorias c ON p.idCat = c.idCat "
+                + "JOIN Proveedores r ON p.idProveedor = r.idProveedor "
+                + "WHERE p.nombre LIKE ? OR c.descripcion LIKE ? OR r.nombre LIKE ?";
     
+        try {
+            Connection conn = cone.obtenerConexion();
+            ps = conn.prepareStatement(sql);
+            String searchText = "%" + busqueda + "%";
+            ps.setString(1, searchText);
+            ps.setString(2, searchText);
+            ps.setString(3, searchText);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
+        }
+    }
 }

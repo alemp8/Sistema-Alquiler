@@ -45,7 +45,7 @@ public class Inventario extends javax.swing.JFrame {
         btnProveedores = new sistemagestionempresa.vistas.botones();
         btnBuscar = new sistemagestionempresa.vistas.botones();
         jLabel1 = new javax.swing.JLabel();
-        tbBuscar = new javax.swing.JTextField();
+        tbBusqueda = new javax.swing.JTextField();
         btnAgregar = new sistemagestionempresa.vistas.botones();
         jSeparator1 = new javax.swing.JSeparator();
         btnMinimizar = new sistemagestionempresa.vistas.botones();
@@ -149,13 +149,23 @@ public class Inventario extends javax.swing.JFrame {
         btnBuscar.setColorOver(new java.awt.Color(179, 183, 146));
         btnBuscar.setFont(new java.awt.Font("Roboto Medium", 0, 18)); // NOI18N
         btnBuscar.setRadio(40);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 24)); // NOI18N
         jLabel1.setText("Lista de Productos");
 
-        tbBuscar.setBackground(new java.awt.Color(229, 224, 216));
-        tbBuscar.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
-        tbBuscar.setBorder(null);
+        tbBusqueda.setBackground(new java.awt.Color(229, 224, 216));
+        tbBusqueda.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        tbBusqueda.setBorder(null);
+        tbBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbBusquedaKeyPressed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(128, 150, 113));
         btnAgregar.setForeground(new java.awt.Color(255, 255, 255));
@@ -258,7 +268,7 @@ public class Inventario extends javax.swing.JFrame {
                                         .addGap(57, 57, 57)
                                         .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jSeparator1)
-                                            .addComponent(tbBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)))
+                                            .addComponent(tbBusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, 627, Short.MAX_VALUE)))
                                     .addGroup(paneles1Layout.createSequentialGroup()
                                         .addGap(395, 395, 395)
                                         .addComponent(jLabel1)))
@@ -292,7 +302,7 @@ public class Inventario extends javax.swing.JFrame {
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(18, 18, 18)
-                        .addComponent(tbBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
                         .addComponent(btnAgregar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -378,6 +388,14 @@ public class Inventario extends javax.swing.JFrame {
         CargarTabla();
     }//GEN-LAST:event_btnAgregar1ActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        controlador.buscar(Registros, tbBusqueda.getText());  
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tbBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbBusquedaKeyPressed
+        controlador.buscar(Registros, tbBusqueda.getText());
+    }//GEN-LAST:event_tbBusquedaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -429,6 +447,6 @@ public class Inventario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
-    private javax.swing.JTextField tbBuscar;
+    private javax.swing.JTextField tbBusqueda;
     // End of variables declaration//GEN-END:variables
 }

@@ -98,6 +98,9 @@ public class Sucursal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Registros = new sistemagestionempresa.vistas.tablaDark();
+        jSeparator6 = new javax.swing.JSeparator();
+        btnBuscar = new sistemagestionempresa.vistas.botones();
+        tbBusqueda = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -236,6 +239,28 @@ public class Sucursal extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Registros);
 
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBuscar.setColorClick(new java.awt.Color(204, 204, 204));
+        btnBuscar.setColorOver(new java.awt.Color(204, 204, 204));
+        btnBuscar.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        btnBuscar.setRadio(40);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        tbBusqueda.setBackground(new java.awt.Color(128, 150, 113));
+        tbBusqueda.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        tbBusqueda.setBorder(null);
+        tbBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbBusquedaKeyPressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
         paneles2.setLayout(paneles2Layout);
         paneles2Layout.setHorizontalGroup(
@@ -247,7 +272,14 @@ public class Sucursal extends javax.swing.JFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paneles2Layout.createSequentialGroup()
                         .addGap(227, 227, 227)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel1))
+                    .addGroup(paneles2Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jSeparator6)
+                            .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 475, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         paneles2Layout.setVerticalGroup(
@@ -256,7 +288,14 @@ public class Sucursal extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(paneles2Layout.createSequentialGroup()
+                        .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 499, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -411,6 +450,14 @@ public class Sucursal extends javax.swing.JFrame {
         tbTelefono.setText(String.valueOf(Registros.getValueAt(fila, 4)));
     }//GEN-LAST:event_RegistrosMouseClicked
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        controlador.buscar(Registros, tbBusqueda.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void tbBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbBusquedaKeyPressed
+        controlador.buscar(Registros, tbBusqueda.getText());
+    }//GEN-LAST:event_tbBusquedaKeyPressed
+
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -446,6 +493,7 @@ public class Sucursal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sistemagestionempresa.vistas.tablaDark Registros;
+    private sistemagestionempresa.vistas.botones btnBuscar;
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnGuardar;
     private sistemagestionempresa.vistas.botones btnInicio;
@@ -460,8 +508,10 @@ public class Sucursal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
+    private javax.swing.JTextField tbBusqueda;
     private sistemagestionempresa.vistas.botones tbCerrar;
     private javax.swing.JTextField tbCorreo;
     private javax.swing.JTextField tbDireccion;

@@ -16,6 +16,10 @@ public class ControladorProductos implements MetodosProcesos<Productos>{
     repo.mantenimiento(entidad,"Modificar");
     } 
     }
+    
+    public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
 
     @Override
     public void Tabla(JTable tabla, Productos entidad) {

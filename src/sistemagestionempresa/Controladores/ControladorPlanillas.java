@@ -27,6 +27,10 @@ public class ControladorPlanillas {
         repo.CargarTabla(tabla);
     }
     
+    public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
+    
      public void Detalle(JTable tabla, int codigo) {
         repo.CargarDetalles(tabla,codigo);
     }

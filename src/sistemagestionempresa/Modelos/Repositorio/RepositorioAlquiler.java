@@ -174,5 +174,42 @@ public class RepositorioAlquiler {
         }
         return modelo;
     }
+    
+    public void buscar(JTable table, String busqueda) {
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas = 0;
+
+        String sql = "SELECT a.idFactura, a.fecha, c.nombre, u.nombre, a.monto "
+                + "FROM Alquiler a "
+                + "JOIN Clientes c ON a.idCliente = c.idCliente "
+                + "JOIN Usuarios u ON a.realizadaPor = u.idUsuario "
+                + "WHERE c.nombre LIKE ? OR u.nombre LIKE ? ";
+    
+        try {
+            Connection conn = cone.obtenerConexion();
+            ps = conn.prepareStatement(sql);
+            String searchText = "%" + busqueda + "%";
+            ps.setString(1, searchText);
+            ps.setString(2, searchText);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
+        }
+    }
 
 }

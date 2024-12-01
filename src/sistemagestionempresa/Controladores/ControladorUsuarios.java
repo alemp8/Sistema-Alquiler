@@ -35,4 +35,8 @@ public class ControladorUsuarios implements MetodosControladores<Usuarios>{
     public DefaultComboBoxModel CargarCombos(){
      return repo.llenarComboBox();
     }
+    
+    public void buscar(JTable table, String busqueda){
+        repo.buscar(table, busqueda);
+    }
 }

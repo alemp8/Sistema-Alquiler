@@ -39,6 +39,9 @@ public class GestionAlquileres extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         Registros = new sistemagestionempresa.vistas.tablaDark();
         jLabel1 = new javax.swing.JLabel();
+        tbBusqueda = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
+        btnBuscar = new sistemagestionempresa.vistas.botones();
         btnInicio = new sistemagestionempresa.vistas.botones();
         btnCerrar = new sistemagestionempresa.vistas.botones();
         btnMinimizar = new sistemagestionempresa.vistas.botones();
@@ -76,6 +79,28 @@ public class GestionAlquileres extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Detalle Alquileres");
 
+        tbBusqueda.setBackground(new java.awt.Color(128, 150, 113));
+        tbBusqueda.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        tbBusqueda.setBorder(null);
+        tbBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbBusquedaKeyPressed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBuscar.setColorClick(new java.awt.Color(204, 204, 204));
+        btnBuscar.setColorOver(new java.awt.Color(204, 204, 204));
+        btnBuscar.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        btnBuscar.setRadio(40);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
         paneles2.setLayout(paneles2Layout);
         paneles2Layout.setHorizontalGroup(
@@ -83,17 +108,29 @@ public class GestionAlquileres extends javax.swing.JFrame {
             .addGroup(paneles2Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
+                    .addGroup(paneles2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tbBusqueda)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 861, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         paneles2Layout.setVerticalGroup(
             paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneles2Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 4, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -300,6 +337,14 @@ public class GestionAlquileres extends javax.swing.JFrame {
         CargarTabla();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
+    private void tbBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbBusquedaKeyPressed
+        controlador.buscar(Registros, tbBusqueda.getText());
+    }//GEN-LAST:event_tbBusquedaKeyPressed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        controlador.buscar(Registros, tbBusqueda.getText());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,6 +382,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sistemagestionempresa.vistas.tablaDark Registros;
+    private sistemagestionempresa.vistas.botones btnBuscar;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnClientes;
     private sistemagestionempresa.vistas.botones btnCobrar;
@@ -346,7 +392,9 @@ public class GestionAlquileres extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.botones btnVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator6;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
+    private javax.swing.JTextField tbBusqueda;
     // End of variables declaration//GEN-END:variables
 }

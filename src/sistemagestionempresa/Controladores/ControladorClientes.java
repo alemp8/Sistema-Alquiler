@@ -24,6 +24,10 @@ public class ControladorClientes implements MetodosProcesos<Clientes>{
         } 
     }
 
+     public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
+     
     @Override
     public void Tabla(JTable tabla, Clientes entidad) {
         repo.CargarTabla(tabla, entidad, "Leer");

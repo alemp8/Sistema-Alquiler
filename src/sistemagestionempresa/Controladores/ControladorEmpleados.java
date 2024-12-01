@@ -35,6 +35,10 @@ public class ControladorEmpleados implements MetodosProcesos<Empleados> {
     public void Eliminar(Empleados entidad) {
         repo.mantenimiento(entidad, "Eliminar");
     }
+    
+    public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
 
     public DefaultComboBoxModel llenarSucursales() {
         return repo.llenarSucursales();

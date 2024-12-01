@@ -21,6 +21,10 @@ public class ControladorAlquileres {
         repo.CargarTabla(tabla);
     }
 
+    public void buscar(JTable tabla, String busqueda) {
+        repo.buscar(tabla, busqueda);
+    }
+    
     public DefaultComboBoxModel Clientes() {
         return repo.llenarClientes();
     }

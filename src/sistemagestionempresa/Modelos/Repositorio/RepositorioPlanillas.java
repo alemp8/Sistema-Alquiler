@@ -241,5 +241,40 @@ public class RepositorioPlanillas {
             JOptionPane.showMessageDialog(null, "Error al eliminar detalle: " + ex.getMessage());
         }
     }
+    
+    public void buscar(JTable table, String busqueda) {
+        DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+        modelo.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas = 0;
+
+        String sql = "SELECT p.idPlanilla, p.fecha, u.nombre "
+                + "FROM Planillas p "
+                + "JOIN Usuarios u ON p.realizadaPor = u.idUsuario "
+                + "WHERE u.nombre LIKE ? ";
+   
+        try {
+            Connection conn = cone.obtenerConexion();
+            ps = conn.prepareStatement(sql);
+            String searchText = "%" + busqueda + "%";
+            ps.setString(1, searchText);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
+        }
+    }
 
 }
