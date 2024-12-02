@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sistemagestionempresa.Modelos.Repositorio.Conexion;
 
 /**
  *
@@ -23,7 +24,7 @@ public class Proveedor extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Proveedores");
-        //CargarTabla();
+        CargarTabla();
     }
 
     private void CargarTabla(){
@@ -36,7 +37,7 @@ public class Proveedor extends javax.swing.JFrame {
        
        try {
         Connection conn = cone.obtenerConexion();
-        ps = conn.prepareStatement("SELECT Codigo, RTN, Nombre, Direccion, Correo, Telefono FROM Proveedores");
+        ps = conn.prepareStatement("SELECT idProveedor, RTN, nombre, direccion, correo, telefono FROM Proveedores");
         rs = ps.executeQuery();
         rsmd = rs.getMetaData();
         columnas = rsmd.getColumnCount();
@@ -61,6 +62,9 @@ public class Proveedor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         Registros = new sistemagestionempresa.vistas.tablaDark();
+        tbBusqueda = new javax.swing.JTextField();
+        jSeparator6 = new javax.swing.JSeparator();
+        btnBuscar = new sistemagestionempresa.vistas.botones();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -114,6 +118,28 @@ public class Proveedor extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(Registros);
 
+        tbBusqueda.setBackground(new java.awt.Color(128, 150, 113));
+        tbBusqueda.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        tbBusqueda.setForeground(new java.awt.Color(255, 255, 255));
+        tbBusqueda.setBorder(null);
+        tbBusqueda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                tbBusquedaKeyPressed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.setBorderColor(new java.awt.Color(255, 255, 255));
+        btnBuscar.setColorClick(new java.awt.Color(204, 204, 204));
+        btnBuscar.setColorOver(new java.awt.Color(204, 204, 204));
+        btnBuscar.setFont(new java.awt.Font("Roboto", 0, 15)); // NOI18N
+        btnBuscar.setRadio(40);
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout paneles2Layout = new javax.swing.GroupLayout(paneles2);
         paneles2.setLayout(paneles2Layout);
         paneles2Layout.setHorizontalGroup(
@@ -125,7 +151,14 @@ public class Proveedor extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(paneles2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 616, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(paneles2Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         paneles2Layout.setVerticalGroup(
@@ -134,8 +167,15 @@ public class Proveedor extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addGroup(paneles2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(paneles2Layout.createSequentialGroup()
+                        .addComponent(tbBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 511, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
@@ -338,7 +378,7 @@ public class Proveedor extends javax.swing.JFrame {
                         .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnInventario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))))
-                .addGap(34, 34, 34)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(paneles1Layout.createSequentialGroup()
@@ -433,7 +473,7 @@ public class Proveedor extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
          try{
             Connection conn = cone.obtenerConexion();
-            PreparedStatement ps = conn.prepareStatement("DELETE FROM Proveedores WHERE Codigo = ?");
+            PreparedStatement ps = conn.prepareStatement("DELETE FROM Proveedores WHERE idProveedor = ?");
             ps.setInt(1,codigo);
             ps.executeUpdate();
             
@@ -457,7 +497,74 @@ public class Proveedor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnInventarioActionPerformed
 
+    private void tbBusquedaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbBusquedaKeyPressed
+        DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
+        modelo.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas = 0;
+
+        String sql = "SELECT idProveedor, RTN, nombre, direccion, correo, telefono FROM Proveedores "
+                + "WHERE nombre LIKE ?";
+
+        try {
+            Connection conn = cone.obtenerConexion();
+            ps = conn.prepareStatement(sql);
+            String searchText = "%" + tbBusqueda.getText() + "%";
+            ps.setString(1, searchText);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_tbBusquedaKeyPressed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+       DefaultTableModel modelo = (DefaultTableModel) Registros.getModel();
+        modelo.setRowCount(0);
+        PreparedStatement ps;
+        ResultSet rs;
+        ResultSetMetaData rsmd;
+        int columnas = 0;
+
+        String sql = "SELECT idProveedor, RTN, nombre, direccion, correo, telefono FROM Proveedores "
+                + "WHERE nombre LIKE ?";
+
+        try {
+            Connection conn = cone.obtenerConexion();
+            ps = conn.prepareStatement(sql);
+            String searchText = "%" + tbBusqueda.getText() + "%";
+            ps.setString(1, searchText);
+            rs = ps.executeQuery();
+            rsmd = rs.getMetaData();
+            columnas = rsmd.getColumnCount();
+
+            while (rs.next()) {
+                Object[] fila = new Object[columnas];
+                for (int i = 0; i < columnas; i++) {
+                    fila[i] = rs.getObject(i + 1);
+                }
+                modelo.addRow(fila);
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la base de datos: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
     private void Guardar(){
+        if(codigo==0){
         String RTN = tbRTN.getText();
         String nombre = tbNombre.getText();
         String direccion = tbDireccion.getText();
@@ -466,7 +573,7 @@ public class Proveedor extends javax.swing.JFrame {
         
         try{
             Connection conn = cone.obtenerConexion();
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Proveedores(RTN, Nombre, Direccion, Correo, Telefono) Values (?,?,?,?,?)");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Proveedores(RTN, nombre, direccion, correo, telefono) Values (?,?,?,?,?)");
             ps.setString(1,RTN);
             ps.setString(2,nombre);
             ps.setString(3,direccion);
@@ -479,7 +586,33 @@ public class Proveedor extends javax.swing.JFrame {
         }
         catch(Exception ex){
             JOptionPane.showMessageDialog(null, ex.toString());
-        }   
+        } 
+        } else {
+        String RTN = tbRTN.getText();
+        String nombre = tbNombre.getText();
+        String direccion = tbDireccion.getText();
+        String correo = tbCorreo.getText();
+        String telefono = tbTelefono.getText();
+        
+        try{
+            Connection conn = cone.obtenerConexion();
+            PreparedStatement ps = conn.prepareStatement("UPDATE Proveedores SET RTN = ?, nombre = ?, SET direccion = ?, correo = ?, telefono = ? WHERE idProveedor = ?");
+            ps.setString(1,RTN);
+            ps.setString(2,nombre);
+            ps.setString(3,direccion);
+            ps.setString(4,correo);
+            ps.setString(5,telefono);
+            
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registro exitoso");
+            CargarTabla();
+        }
+        catch(Exception ex){
+            JOptionPane.showMessageDialog(null, ex.toString());
+        } 
+        
+        }
+          
     }
     
     private boolean Validar() {
@@ -491,8 +624,16 @@ public class Proveedor extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "El campo RTN es obligatorio.");
         return false;
     }
-    if (tbNombre.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(null, "El campo RTN es obligatorio.");
+    if (tbDireccion.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo Direccion es obligatorio.");
+        return false;
+    }
+    if (tbCorreo.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo Correo es obligatorio.");
+        return false;
+    }
+    if (tbTelefono.getText().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo Telefono es obligatorio.");
         return false;
     }
     return true;
@@ -532,6 +673,7 @@ public class Proveedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sistemagestionempresa.vistas.tablaDark Registros;
+    private sistemagestionempresa.vistas.botones btnBuscar;
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnGuardar;
     private sistemagestionempresa.vistas.botones btnInicio;
@@ -549,8 +691,10 @@ public class Proveedor extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JSeparator jSeparator6;
     private sistemagestionempresa.vistas.paneles paneles1;
     private sistemagestionempresa.vistas.paneles paneles2;
+    private javax.swing.JTextField tbBusqueda;
     private sistemagestionempresa.vistas.botones tbCerrar;
     private javax.swing.JTextField tbCorreo;
     private javax.swing.JTextField tbDireccion;

@@ -18,7 +18,6 @@ import sistemagestionempresa.Modelos.Entidades.Productos;
 public class Producto extends javax.swing.JFrame {
 
     ControladorProductos controlador = new ControladorProductos();
-    Conexion cone = new Conexion();
     Productos producto = new Productos();
     int cod = 0;
 

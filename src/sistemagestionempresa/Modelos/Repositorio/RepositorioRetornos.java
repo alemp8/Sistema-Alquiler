@@ -61,6 +61,15 @@ public class RepositorioRetornos {
             JOptionPane.showMessageDialog(null, "Error: " + ex);
         }
     }
+    
+    /*
+    SELECT a.idFactura, a.fecha, c.nombre, u.nombre, a.monto, r.montoRecargo 
+FROM Alquiler a
+JOIN Clientes c ON a.idCliente = c.idCliente
+JOIN Usuarios u ON a.realizadaPor = u.idUsuario
+JOIN Recargo r ON a.idFactura = r.idFactura
+;
+    */
 
     public void CargarTabla(JTable table) {
         DefaultTableModel modelo = (DefaultTableModel) table.getModel();

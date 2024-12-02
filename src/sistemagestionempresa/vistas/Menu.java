@@ -30,10 +30,11 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Inicio de Sesion");
+        txtUsuario.setText(usuario.getNombre());
         if(usuario.getRolUsuario()!=1){
         btnUsuario.setEnabled(false);
         btnReportes.setEnabled(false);
-        txtUsuario.setText(usuario.getNombre());
+        btnRecursos.setEnabled(false);
         }
     }
 
