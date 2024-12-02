@@ -44,15 +44,14 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnInicio" min="-2" pref="150" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="357" max="-2" attributes="0"/>
                           <Component id="btnMinimizar" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace min="166" max="32767" attributes="0"/>
                           <Component id="paneles2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnCobrar" min="-2" pref="100" max="-2" attributes="0"/>
@@ -96,7 +95,7 @@
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="btnLimpiar" min="-2" pref="99" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="btnAgregar1" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnQuitar" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnAgregar" min="-2" pref="40" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
@@ -164,7 +163,7 @@
                           <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="btnAgregar1" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
+                              <Component id="btnQuitar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="btnAgregar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                               <Component id="btnLimpiar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           </Group>
@@ -507,7 +506,7 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="sistemagestionempresa.vistas.botones" name="btnAgregar1">
+        <Component class="sistemagestionempresa.vistas.botones" name="btnQuitar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -533,6 +532,9 @@
             </Property>
             <Property name="radio" type="int" value="40"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuitarActionPerformed"/>
+          </Events>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">
           <AuxValues>
@@ -594,6 +596,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="RegistrosMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

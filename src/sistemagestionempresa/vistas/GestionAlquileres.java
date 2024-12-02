@@ -24,6 +24,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Gestio de Alquileres");
         CargarTabla();
+        btnRetornar.setEnabled(false);
     }
     
     public void CargarTabla() {
@@ -48,7 +49,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
         btnClientes = new sistemagestionempresa.vistas.botones();
         btnVentas = new sistemagestionempresa.vistas.botones();
         btnEliminar = new sistemagestionempresa.vistas.botones();
-        btnCobrar = new sistemagestionempresa.vistas.botones();
+        btnRetornar = new sistemagestionempresa.vistas.botones();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -218,18 +219,18 @@ public class GestionAlquileres extends javax.swing.JFrame {
             }
         });
 
-        btnCobrar.setBackground(new java.awt.Color(51, 51, 255));
-        btnCobrar.setForeground(new java.awt.Color(255, 255, 255));
-        btnCobrar.setText("Retornar");
-        btnCobrar.setBorderColor(new java.awt.Color(51, 51, 255));
-        btnCobrar.setColor(new java.awt.Color(51, 51, 255));
-        btnCobrar.setColorClick(new java.awt.Color(0, 0, 255));
-        btnCobrar.setColorOver(new java.awt.Color(0, 0, 255));
-        btnCobrar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnCobrar.setRadio(40);
-        btnCobrar.addActionListener(new java.awt.event.ActionListener() {
+        btnRetornar.setBackground(new java.awt.Color(51, 51, 255));
+        btnRetornar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRetornar.setText("Retornar");
+        btnRetornar.setBorderColor(new java.awt.Color(51, 51, 255));
+        btnRetornar.setColor(new java.awt.Color(51, 51, 255));
+        btnRetornar.setColorClick(new java.awt.Color(0, 0, 255));
+        btnRetornar.setColorOver(new java.awt.Color(0, 0, 255));
+        btnRetornar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnRetornar.setRadio(40);
+        btnRetornar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCobrarActionPerformed(evt);
+                btnRetornarActionPerformed(evt);
             }
         });
 
@@ -250,7 +251,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRetornar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, paneles1Layout.createSequentialGroup()
@@ -275,7 +276,7 @@ public class GestionAlquileres extends javax.swing.JFrame {
                             .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnCobrar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRetornar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -322,12 +323,13 @@ public class GestionAlquileres extends javax.swing.JFrame {
         fact.show();
     }//GEN-LAST:event_btnVentasActionPerformed
 
-    private void btnCobrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCobrarActionPerformed
-        Retorno retorno = new Retorno();
+    private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
+        Retorno retorno = new Retorno(codigo);
         retorno.show();
-    }//GEN-LAST:event_btnCobrarActionPerformed
+    }//GEN-LAST:event_btnRetornarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        btnRetornar.setEnabled(true);
         fila = Registros.rowAtPoint(evt.getPoint());
         codigo = Integer.valueOf(String.valueOf(Registros.getValueAt(fila, 0)));
     }//GEN-LAST:event_RegistrosMouseClicked
@@ -385,10 +387,10 @@ public class GestionAlquileres extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.botones btnBuscar;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnClientes;
-    private sistemagestionempresa.vistas.botones btnCobrar;
     private sistemagestionempresa.vistas.botones btnEliminar;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnMinimizar;
+    private sistemagestionempresa.vistas.botones btnRetornar;
     private sistemagestionempresa.vistas.botones btnVentas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

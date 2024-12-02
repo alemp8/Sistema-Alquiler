@@ -57,7 +57,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnVentas" min="-2" pref="120" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnCobrar" min="-2" pref="91" max="-2" attributes="0"/>
+                          <Component id="btnRetornar" min="-2" pref="91" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                           <Component id="btnMinimizar" min="-2" pref="20" max="-2" attributes="0"/>
                       </Group>
@@ -91,7 +91,7 @@
                               <Component id="btnVentas" alignment="3" min="-2" pref="40" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <Component id="btnCobrar" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
+                      <Component id="btnRetornar" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="paneles2" min="-2" max="-2" attributes="0"/>
@@ -433,7 +433,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="sistemagestionempresa.vistas.botones" name="btnCobrar">
+        <Component class="sistemagestionempresa.vistas.botones" name="btnRetornar">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="33" red="33" type="rgb"/>
@@ -460,7 +460,7 @@
             <Property name="radio" type="int" value="40"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCobrarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRetornarActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

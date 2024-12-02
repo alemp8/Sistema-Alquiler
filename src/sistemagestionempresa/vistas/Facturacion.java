@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
@@ -75,7 +71,7 @@ public class Facturacion extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
-        btnAgregar1 = new sistemagestionempresa.vistas.botones();
+        btnQuitar = new sistemagestionempresa.vistas.botones();
         jScrollPane1 = new javax.swing.JScrollPane();
         Registros = new sistemagestionempresa.vistas.tablaDark();
         tbCantidad = new javax.swing.JTextField();
@@ -233,15 +229,20 @@ public class Facturacion extends javax.swing.JFrame {
 
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
 
-        btnAgregar1.setBackground(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setForeground(new java.awt.Color(255, 255, 255));
-        btnAgregar1.setText("-");
-        btnAgregar1.setBorderColor(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setColor(new java.awt.Color(255, 0, 0));
-        btnAgregar1.setColorClick(new java.awt.Color(204, 0, 0));
-        btnAgregar1.setColorOver(new java.awt.Color(204, 0, 0));
-        btnAgregar1.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
-        btnAgregar1.setRadio(40);
+        btnQuitar.setBackground(new java.awt.Color(255, 0, 0));
+        btnQuitar.setForeground(new java.awt.Color(255, 255, 255));
+        btnQuitar.setText("-");
+        btnQuitar.setBorderColor(new java.awt.Color(255, 0, 0));
+        btnQuitar.setColor(new java.awt.Color(255, 0, 0));
+        btnQuitar.setColorClick(new java.awt.Color(204, 0, 0));
+        btnQuitar.setColorOver(new java.awt.Color(204, 0, 0));
+        btnQuitar.setFont(new java.awt.Font("Roboto Medium", 0, 14)); // NOI18N
+        btnQuitar.setRadio(40);
+        btnQuitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQuitarActionPerformed(evt);
+            }
+        });
 
         Registros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -252,6 +253,11 @@ public class Facturacion extends javax.swing.JFrame {
             }
         ));
         Registros.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
+        Registros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                RegistrosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(Registros);
 
         tbCantidad.setBackground(new java.awt.Color(229, 224, 216));
@@ -290,14 +296,13 @@ public class Facturacion extends javax.swing.JFrame {
         paneles1Layout.setHorizontalGroup(
             paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, paneles1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(paneles1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(357, 357, 357)
                         .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(paneles1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCobrar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -334,7 +339,7 @@ public class Facturacion extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -394,7 +399,7 @@ public class Facturacion extends javax.swing.JFrame {
                         .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(paneles1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnQuitar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -502,7 +507,6 @@ public class Facturacion extends javax.swing.JFrame {
             modelo.addRow(datos);
             calcularTotal();
             Limpiar();
-
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -541,6 +545,14 @@ public class Facturacion extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnCobrarActionPerformed
+
+    private void btnQuitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuitarActionPerformed
+        modelo.removeRow(fila);
+    }//GEN-LAST:event_btnQuitarActionPerformed
+
+    private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
+        fila = Registros.rowAtPoint(evt.getPoint());
+    }//GEN-LAST:event_RegistrosMouseClicked
 
     public void calcularTotal() {
         BigDecimal total = BigDecimal.ZERO;
@@ -595,12 +607,12 @@ public class Facturacion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private sistemagestionempresa.vistas.tablaDark Registros;
     private sistemagestionempresa.vistas.botones btnAgregar;
-    private sistemagestionempresa.vistas.botones btnAgregar1;
     private sistemagestionempresa.vistas.botones btnCerrar;
     private sistemagestionempresa.vistas.botones btnCobrar;
     private sistemagestionempresa.vistas.botones btnInicio;
     private sistemagestionempresa.vistas.botones btnLimpiar;
     private sistemagestionempresa.vistas.botones btnMinimizar;
+    private sistemagestionempresa.vistas.botones btnQuitar;
     private javax.swing.JComboBox<String> cbClientes;
     private javax.swing.JComboBox<String> cbProducto;
     private com.toedter.calendar.JDateChooser fecha;
