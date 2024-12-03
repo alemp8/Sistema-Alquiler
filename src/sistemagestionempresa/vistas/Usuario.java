@@ -1,6 +1,7 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemagestionempresa.Controladores.ControladorUsuarios;
 import sistemagestionempresa.Modelos.Entidades.Roles;
@@ -22,6 +23,8 @@ public class Usuario extends javax.swing.JFrame {
         this.setBackground(new Color(0, 0, 0, 0));
         //this.setContentPane(panel);
         initComponents();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
         this.setLocationRelativeTo(null);
         this.setTitle("Usuarios");
         CargarTabla();

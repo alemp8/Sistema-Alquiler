@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistemagestionempresa.Controladores.ControladorCategorias;
@@ -28,6 +29,8 @@ public class Categoria extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Categoria");
         CargarTabla();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public boolean Validacion() {

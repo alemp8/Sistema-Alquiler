@@ -1,6 +1,7 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemagestionempresa.Controladores.ControladorClientes;
 import sistemagestionempresa.Modelos.Entidades.Clientes;
@@ -22,6 +23,8 @@ public class Cliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setTitle("Clientes");
         CargarTabla();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public boolean Validacion() {

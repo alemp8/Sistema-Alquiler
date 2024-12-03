@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistemagestionempresa.Controladores.ControladorAlquileres;
@@ -39,6 +40,8 @@ public class Facturacion extends javax.swing.JFrame {
         this.setTitle("Facturación");
         modelo = (DefaultTableModel) Registros.getModel();
         CargarCombos();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public void CargarCombos() {

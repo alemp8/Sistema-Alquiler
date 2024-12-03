@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import sistemagestionempresa.Controladores.ControladorProductos;
@@ -25,6 +26,8 @@ public class Producto extends javax.swing.JFrame {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
         this.setLocationRelativeTo(null);
         this.setTitle("Agregar Producto");
         CargarCombos();

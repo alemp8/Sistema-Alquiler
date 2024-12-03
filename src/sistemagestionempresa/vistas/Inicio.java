@@ -1,6 +1,7 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemagestionempresa.Controladores.ControladorLogin;
 import sistemagestionempresa.Modelos.Entidades.Login;
@@ -22,6 +23,8 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Inicio de Sesion");
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public boolean Validacion() {

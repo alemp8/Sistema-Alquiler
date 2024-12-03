@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import sistemagestionempresa.Modelos.Entidades.DetallePlanilla;
 import sistemagestionempresa.Modelos.Entidades.Usuarios;
@@ -46,6 +47,8 @@ public class ModificarPlanilla extends javax.swing.JFrame {
         String codigo = String.valueOf(codDetalle);
         txtCodigo.setText(codigo);
         CargarCombos();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public void CargarCombos() {

@@ -5,6 +5,7 @@
 package sistemagestionempresa.vistas;
 
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import sistemagestionempresa.Modelos.Entidades.Usuarios;
 
 /**
@@ -21,6 +22,9 @@ public class Menu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Inicio de Sesion");
+        txtUno.setText("¡Animo!");
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
     
     public Menu(Usuarios usuario){
@@ -28,6 +32,8 @@ public class Menu extends javax.swing.JFrame {
         this.setBackground(new Color(0, 0, 0, 0));
         this.setContentPane(panel);
         initComponents();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
         this.setLocationRelativeTo(null);
         this.setTitle("Inicio de Sesion");
         txtUsuario.setText(usuario.getNombre());
@@ -52,7 +58,7 @@ public class Menu extends javax.swing.JFrame {
         btnFacturacion = new sistemagestionempresa.vistas.botones();
         btnReportes = new sistemagestionempresa.vistas.botones();
         paneles7 = new sistemagestionempresa.vistas.paneles();
-        jLabel1 = new javax.swing.JLabel();
+        txtUno = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JLabel();
         labelImagen = new javax.swing.JLabel();
         paneles4 = new sistemagestionempresa.vistas.paneles();
@@ -202,12 +208,12 @@ public class Menu extends javax.swing.JFrame {
 
         paneles7.setBackground(new java.awt.Color(165, 188, 155));
 
-        jLabel1.setFont(new java.awt.Font("Roboto Medium", 0, 40)); // NOI18N
-        jLabel1.setText("¡Bienvenido!");
+        txtUno.setFont(new java.awt.Font("Roboto Medium", 0, 40)); // NOI18N
+        txtUno.setText("¡Bienvenido!");
 
         txtUsuario.setFont(new java.awt.Font("Roboto Medium", 0, 30)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtUsuario.setText("Usuario");
+        txtUsuario.setText("Gestiona tu Empresa");
 
         labelImagen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/sistemagestionempresa/vistas/MenuImagen1.png"))); // NOI18N
 
@@ -216,16 +222,16 @@ public class Menu extends javax.swing.JFrame {
         paneles7Layout.setHorizontalGroup(
             paneles7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paneles7Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
+                .addGap(35, 35, 35)
                 .addGroup(paneles7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneles7Layout.createSequentialGroup()
-                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(txtUno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(158, 158, 158))
                     .addGroup(paneles7Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(113, 113, 113)))
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(labelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(341, 341, 341))
+                .addGap(189, 189, 189))
         );
         paneles7Layout.setVerticalGroup(
             paneles7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,13 +239,13 @@ public class Menu extends javax.swing.JFrame {
                 .addGroup(paneles7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(paneles7Layout.createSequentialGroup()
                         .addGap(60, 60, 60)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addComponent(txtUno)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtUsuario))
                     .addGroup(paneles7Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
+                        .addGap(22, 22, 22)
                         .addComponent(labelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         paneles4.setBackground(new java.awt.Color(128, 150, 113));
@@ -363,7 +369,7 @@ public class Menu extends javax.swing.JFrame {
                     .addGroup(paneles1Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(paneles2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(75, 75, 75)
+                        .addGap(82, 82, 82)
                         .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -388,7 +394,7 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(paneles5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paneles4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(paneles6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -486,7 +492,6 @@ public class Menu extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.botones btnRecursos;
     private sistemagestionempresa.vistas.botones btnReportes;
     private sistemagestionempresa.vistas.botones btnUsuario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -500,6 +505,7 @@ public class Menu extends javax.swing.JFrame {
     private sistemagestionempresa.vistas.paneles paneles5;
     private sistemagestionempresa.vistas.paneles paneles6;
     private sistemagestionempresa.vistas.paneles paneles7;
+    private javax.swing.JLabel txtUno;
     private javax.swing.JLabel txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,6 +2,7 @@ package sistemagestionempresa.vistas;
 
 import java.awt.Color;
 import java.math.BigDecimal;
+import javax.swing.ImageIcon;
 import sistemagestionempresa.Controladores.ControladorProductos;
 import sistemagestionempresa.Modelos.Entidades.Productos;
 
@@ -26,6 +27,8 @@ public class Inventario extends javax.swing.JFrame {
         this.setTitle("Inventario");
         btnModificar.setEnabled(false);
         CargarTabla();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public void CargarTabla() {

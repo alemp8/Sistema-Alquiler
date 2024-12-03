@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import sistemagestionempresa.Modelos.Entidades.DetallePlanilla;
 import sistemagestionempresa.Modelos.Entidades.Usuarios;
@@ -34,6 +35,8 @@ public class Planilla extends javax.swing.JFrame {
         this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
         String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
         txtFecha.setText(fecha);
         modelo = (DefaultTableModel) Registros.getModel();

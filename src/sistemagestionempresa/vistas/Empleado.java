@@ -2,6 +2,7 @@ package sistemagestionempresa.vistas;
 
 import java.awt.Color;
 import java.math.BigDecimal;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import sistemagestionempresa.Controladores.ControladorEmpleados;
 import sistemagestionempresa.Modelos.Entidades.Empleados;
@@ -29,6 +30,8 @@ public class Empleado extends javax.swing.JFrame {
         this.setTitle("Empleados");
         CargarTabla();
         CargarCombos();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
     }
 
     public void CargarCombos() {

@@ -71,7 +71,7 @@ public class RepositorioReportes {
         try {
             Connection conn = cone.obtenerConexion();
             
-            String sql = "SELECT a.idFactura, a.fecha, c.nombre, u.nombre, a.monto,p.nombre, d.cantidad, d.subtotal "
+            String sql = "SELECT a.idFactura, a.fecha, c.nombre, u.nombre, p.nombre, d.cantidad, d.subtotal "
                     + "FROM Alquiler a "
                     + "JOIN Clientes c ON a.idCliente = c.idCliente "
                     + "JOIN Usuarios u ON a.realizadaPor = u.idUsuario "

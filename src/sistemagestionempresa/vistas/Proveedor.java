@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import sistemagestionempresa.Modelos.Repositorio.Conexion;
@@ -22,6 +23,8 @@ public class Proveedor extends javax.swing.JFrame {
        this.setUndecorated(true);
         this.setBackground(new Color(0, 0, 0, 0));
         initComponents();
+        ImageIcon icono = new ImageIcon(getClass().getResource("seo-tag_12223021.png"));
+        this.setIconImage(icono.getImage());
         this.setLocationRelativeTo(null);
         this.setTitle("Proveedores");
         CargarTabla();
