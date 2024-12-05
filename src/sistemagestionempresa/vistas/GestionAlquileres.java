@@ -329,7 +329,6 @@ public class GestionAlquileres extends javax.swing.JFrame {
     private void btnRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRetornarActionPerformed
         Retorno retorno = new Retorno(codigo);
         retorno.show();
-        this.dispose();
     }//GEN-LAST:event_btnRetornarActionPerformed
 
     private void RegistrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegistrosMouseClicked
